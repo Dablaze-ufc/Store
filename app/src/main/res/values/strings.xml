@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Store</string>
     <string name="hello_blank_fragment">Hello Blank Fragment</string>
+    <string name="sign_up_with_google">Sign up with Google</string>
+    <string name="sign_up_with_facebook">Sign up with Facebook</string>
+    <string name="sign_up_with_email">Sign up with Email</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 

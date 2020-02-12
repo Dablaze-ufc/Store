@@ -1,14 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.LoginFragment">
+    tools:context=".LoginFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="190dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="40dp"
+        android:src="@mipmap/ic_launcher_round"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/sign_up_with_email"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        app:cornerRadius="4dp"
+        app:icon="@drawable/ic_mail"
+        app:iconGravity="start"
+        app:iconPadding="4dp"
+        app:iconTintMode="multiply"
+        app:layout_constraintBottom_toTopOf="@+id/button_facebook"
+        app:layout_constraintEnd_toEndOf="@+id/button_facebook"
+        app:layout_constraintStart_toStartOf="@+id/button_facebook"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp" />
+
+    <Button
+        android:id="@+id/button_facebook"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/facebook_blue"
+        android:text="@string/sign_up_with_facebook"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:cornerRadius="4dp"
+        app:icon="@drawable/ic_facebook"
+        app:iconGravity="start"
+        app:iconPadding="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_google"
+        app:layout_constraintEnd_toEndOf="@+id/button_google"
+        app:layout_constraintStart_toStartOf="@+id/button_google" />
+
+    <Button
+        android:id="@+id/button_google"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="70dp"
+        android:text="@string/sign_up_with_google"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        app:cornerRadius="4dp"
+        app:icon="@drawable/ic_google"
+        app:iconPadding="4dp"
+        app:iconTintMode="multiply"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
