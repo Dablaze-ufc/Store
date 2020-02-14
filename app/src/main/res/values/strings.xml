@@ -5,6 +5,10 @@
     <string name="sign_up_with_facebook">Sign up with Facebook</string>
     <string name="sign_up_with_email">Sign up with Email</string>
 
+    <string name="facebook_app_id">228882504836007</string>
+    <string name="fb_login_protocol_scheme">fb228882504836007</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

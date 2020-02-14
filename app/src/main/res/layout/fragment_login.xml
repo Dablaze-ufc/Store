@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginFragment">
+    tools:context=".ui.LoginFragment">
 
 
     <ImageView
@@ -29,10 +29,12 @@
         android:textAllCaps="false"
         android:textColor="@color/black"
         app:cornerRadius="4dp"
+        android:backgroundTint="@color/white"
+        android:padding="13dp"
         app:icon="@drawable/ic_mail"
         app:iconGravity="start"
         app:iconPadding="4dp"
-        app:iconTintMode="multiply"
+        app:iconTint="#000000"
         app:layout_constraintBottom_toTopOf="@+id/button_facebook"
         app:layout_constraintEnd_toEndOf="@+id/button_facebook"
         app:layout_constraintStart_toStartOf="@+id/button_facebook"
@@ -51,6 +53,7 @@
         app:cornerRadius="4dp"
         app:icon="@drawable/ic_facebook"
         app:iconGravity="start"
+        android:padding="13dp"
         app:iconPadding="4dp"
         app:layout_constraintBottom_toTopOf="@+id/button_google"
         app:layout_constraintEnd_toEndOf="@+id/button_google"
@@ -66,7 +69,9 @@
         android:text="@string/sign_up_with_google"
         android:textAllCaps="false"
         android:textColor="@color/black"
+        android:backgroundTint="@color/white"
         app:cornerRadius="4dp"
+        android:padding="13dp"
         app:icon="@drawable/ic_google"
         app:iconPadding="4dp"
         app:iconTintMode="multiply"
