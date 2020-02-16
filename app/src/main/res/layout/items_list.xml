@@ -32,7 +32,6 @@
             android:id="@+id/item_tittle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="@+id/item_image"
             app:layout_constraintStart_toStartOf="@+id/item_image"
@@ -43,10 +42,9 @@
             android:id="@+id/item_descp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="@+id/item_image"
-            app:layout_constraintStart_toStartOf="@+id/item_image"
+            app:layout_constraintStart_toStartOf="@+id/item_tittle"
             app:layout_constraintTop_toBottomOf="@+id/item_tittle"
             tools:text="A FOOT WEAR OU CANT RESIST" />
 

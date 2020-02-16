@@ -10,4 +10,18 @@
         android:name="com.irobot.myapplication.ui.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/itemsFragment"
+        android:name="com.irobot.myapplication.ui.item.ItemsFragment"
+        android:label="fragment_items"
+        tools:layout="@layout/fragment_items">
+        <action
+            android:id="@+id/action_itemsFragment_to_itemsDetailsFragment"
+            app:destination="@id/itemsDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemsDetailsFragment"
+        android:name="com.irobot.myapplication.itemsDetails.ItemsDetailsFragment"
+        android:label="fragment_items_details"
+        tools:layout="@layout/fragment_items_details" />
 </navigation>

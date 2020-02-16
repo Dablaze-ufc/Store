@@ -1,6 +1,5 @@
 package com.irobot.myapplication.ui.item
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,7 @@ import com.google.android.material.card.MaterialCardView
 import com.irobot.myapplication.R
 import com.irobot.myapplication.data.Items
 
-class ItemsRecyclerAdapter(private var itemsList: List<Items>) :
+class ItemsRecyclerAdapter(private var itemsList: List<Items>?) :
     RecyclerView.Adapter<ItemsRecyclerAdapter.ItemsRecyclerViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemsRecyclerViewHolder {
@@ -21,14 +20,15 @@ class ItemsRecyclerAdapter(private var itemsList: List<Items>) :
         return ItemsRecyclerViewHolder(inflater, parent)
     }
 
-    override fun getItemCount(): Int = itemsList.size
+    override fun getItemCount(): Int = itemsList!!.size
 
     override fun onBindViewHolder(holder: ItemsRecyclerViewHolder, position: Int) {
-        var item: Items = itemsList.get(position)
+        var item: Items = itemsList!!.get(position)
         holder.bind(item)
         holder.itemView.findViewById<MaterialCardView>(R.id.item_single)
             .setOnClickListener { v: View ->
-                Navigation.findNavController(v).navigate()
+                Navigation.findNavController(v)
+                    .navigate(R.id.action_itemsFragment_to_itemsDetailsFragment)
             }
     }
 
@@ -58,6 +58,4 @@ class ItemsRecyclerAdapter(private var itemsList: List<Items>) :
         }
 
     }
-
-
 }
