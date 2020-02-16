@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Store</string>
     <string name="hello_blank_fragment">Hello Blank Fragment</string>
+    <string name="image_for_the_item">Image for the item</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 
