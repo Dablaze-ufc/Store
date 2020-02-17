@@ -80,4 +80,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:strokeColor="@color/black"
         app:strokeWidth="2dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:text="Sign out"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/button_google"
+        app:layout_constraintStart_toStartOf="@+id/button_google"
+        app:layout_constraintTop_toBottomOf="@+id/button_google" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
