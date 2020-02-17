@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/itemsDetailsFragment"
-        android:name="com.irobot.myapplication.itemsDetails.ItemsDetailsFragment"
+        android:name="com.irobot.myapplication.ui.item.ItemsDetailsFragment"
         android:label="fragment_items_details"
         tools:layout="@layout/fragment_items_details" />
 </navigation>

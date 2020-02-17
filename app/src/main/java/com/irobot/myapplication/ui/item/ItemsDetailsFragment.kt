@@ -1,4 +1,4 @@
-package com.irobot.myapplication.itemsDetails
+package com.irobot.myapplication.ui.item
 
 
 import android.os.Bundle
