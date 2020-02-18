@@ -7,6 +7,16 @@
 
     <string name="facebook_app_id">228882504836007</string>
     <string name="fb_login_protocol_scheme">fb228882504836007</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="text">Please SignIn to continue to Store</string>
+    <string name="sign_in">Sign In</string>
+    <string name="cancel">Cancel</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="text_register">Please Register to Continue to store</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register">Register</string>
+    <string name="already_signed_in">Already Signed In?</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

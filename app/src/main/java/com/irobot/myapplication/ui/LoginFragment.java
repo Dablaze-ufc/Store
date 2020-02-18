@@ -1,11 +1,15 @@
 package com.irobot.myapplication.ui;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +39,7 @@ public class LoginFragment extends Fragment {
 
     private static final String TAG = "LoginFragment";
     private int RC_SIGN_IN = 0;
-    private Button mButtonGoogleSignin;
+    private Button mButtonGoogleSignin, mButtomEmail;
     private FirebaseAuth mAuth;
     private TextView mTextViewSignOut;
     private GoogleSignInClient mGoogleClient;
@@ -46,10 +50,16 @@ public class LoginFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_login, container, false);
         mButtonGoogleSignin = root.findViewById(R.id.button_google);
+        mButtomEmail = root.findViewById(R.id.button_email);
         mTextViewSignOut = root.findViewById(R.id.textView);
         mAuth = FirebaseAuth.getInstance();
+
         googleSignInOption();
+
+        mButtomEmail.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_signInDialogFragment));
+
         return root;
+
     }
 
     private void googleSignInOption(){
@@ -131,14 +141,16 @@ public class LoginFragment extends Fragment {
 
     }
 
-    private void updateUI(FirebaseUser Fusers) {
+    private void updateUI(FirebaseUser fUsers) {
         mTextViewSignOut.setVisibility(View.VISIBLE);
         GoogleSignInAccount inAccount = GoogleSignIn.getLastSignedInAccount(getContext());
         if (inAccount != null){
-            String personName = Fusers.getDisplayName();
-            String PersonEmail = Fusers.getEmail();
+            String personName = fUsers.getDisplayName();
+            String PersonEmail = fUsers.getEmail();
             Toast.makeText(getContext(), personName + PersonEmail, Toast.LENGTH_SHORT).show();
         }
     }
+
+
 }
 

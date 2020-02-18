@@ -8,5 +8,27 @@
         android:id="@+id/loginFragment"
         android:name="com.irobot.myapplication.ui.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_signInDialogFragment"
+            app:destination="@id/signInDialogFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/signInDialogFragment"
+        android:name="com.irobot.myapplication.SignInDialogFragment"
+        android:label="dialog_signup_email"
+        tools:layout="@layout/fragment_sign_in_dialog" >
+        <action
+            android:id="@+id/action_signInDialogFragment_to_registerDialogFragment"
+            app:destination="@id/registerDialogFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/registerDialogFragment"
+        android:name="com.irobot.myapplication.RegisterDialogFragment"
+        android:label="fragment_register_dialog"
+        tools:layout="@layout/fragment_register_dialog" >
+        <action
+            android:id="@+id/action_registerDialogFragment_to_signInDialogFragment"
+            app:destination="@id/signInDialogFragment" />
+    </fragment>
 </navigation>
