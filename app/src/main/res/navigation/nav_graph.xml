@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/itemsFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -18,10 +18,17 @@
         <action
             android:id="@+id/action_itemsFragment_to_itemsDetailsFragment"
             app:destination="@id/itemsDetailsFragment" />
+        <action
+            android:id="@+id/action_itemsFragment_to_itemsAddFragment"
+            app:destination="@id/itemsAddFragment" />
     </fragment>
     <fragment
         android:id="@+id/itemsDetailsFragment"
         android:name="com.irobot.myapplication.ui.item.ItemsDetailsFragment"
         android:label="fragment_items_details"
         tools:layout="@layout/fragment_items_details" />
+    <fragment
+        android:id="@+id/itemsAddFragment"
+        android:name="com.irobot.myapplication.ui.item.ItemsAddFragment"
+        android:label="ItemsAddFragment" />
 </navigation>

@@ -20,7 +20,10 @@ class ItemsRecyclerAdapter(private var itemsList: List<Items>?) :
         return ItemsRecyclerViewHolder(inflater, parent)
     }
 
-    override fun getItemCount(): Int = itemsList!!.size
+    override fun getItemCount(): Int {
+        return itemsList?.size ?: 0
+
+    }
 
     override fun onBindViewHolder(holder: ItemsRecyclerViewHolder, position: Int) {
         var item: Items = itemsList!!.get(position)
