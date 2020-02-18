@@ -119,6 +119,7 @@ class ItemsAddFragment : Fragment() {
 
     private fun addItems() {
         var id = databaseReference.push().key
+        imageUrl = ""
         val item = Items(
             imageUrl,
             binding.itemName.editText!!.text.toString().trim(),
