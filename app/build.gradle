@@ -6,6 +6,8 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'com.google.gms.google-services'
+
 android {
     dataBinding {
         enabled true
@@ -56,4 +58,4 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:17.2.2'
 
 }
-apply plugin: 'com.google.gms.google-services'
+
