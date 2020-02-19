@@ -14,7 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import com.google.android.material.button.MaterialButton
+import com.bumptech.glide.Glide
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -23,7 +23,6 @@ import com.google.firebase.storage.UploadTask
 import com.irobot.myapplication.R
 import com.irobot.myapplication.data.Items
 import com.irobot.myapplication.databinding.FragmentItemsAddBinding
-import kotlinx.android.synthetic.main.fragment_items_add.*
 import java.io.ByteArrayOutputStream
 
 /**
@@ -32,6 +31,7 @@ import java.io.ByteArrayOutputStream
 class ItemsAddFragment : Fragment() {
     private lateinit var imageUrl: String
     private lateinit var bitmap: Bitmap
+    private var imagePath: String = ""
     private lateinit var binding: FragmentItemsAddBinding
     private var databaseReference: DatabaseReference =
         FirebaseDatabase.getInstance().getReference("items")
@@ -49,7 +49,7 @@ class ItemsAddFragment : Fragment() {
             openGallery()
         }
         binding.buttonItemAdd.setOnClickListener { v: View ->
-            addItems()
+            uploadImageToFireBase()
         }
         if (arguments != null) {
 
@@ -64,14 +64,17 @@ class ItemsAddFragment : Fragment() {
             if (uri != null) {
                 try {
                     if (Build.VERSION.SDK_INT >= 29) {
+                        imagePath = uri.lastPathSegment!!
                         var imageDecoder =
                             ImageDecoder.createSource(requireActivity().contentResolver, uri)
                         bitmap = ImageDecoder.decodeBitmap(imageDecoder)
+                        Glide.with(requireActivity()).load(uri).into(binding.imageView)
                     } else {
                         bitmap = MediaStore.Images.Media.getBitmap(
                             requireActivity().contentResolver,
                             uri
                         )
+                        Glide.with(requireActivity()).load(uri).into(binding.imageView)
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -88,20 +91,21 @@ class ItemsAddFragment : Fragment() {
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.setType("image/*")
-        startActivity(intent)
+        startActivityForResult(intent, 67)
     }
 
     private fun uploadImageToFireBase() {
         var outputStream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 40, outputStream)
         var data = outputStream.toByteArray()
-        var firebaseStorage = FirebaseStorage.getInstance().getReference("images/items")
+        var firebaseStorage = FirebaseStorage.getInstance().getReference("images/items" + imagePath)
         var task: UploadTask = firebaseStorage.putBytes(data)
         task.addOnCompleteListener { task1 ->
             if (task1.isSuccessful) {
                 task1.result!!.storage.downloadUrl.addOnCompleteListener { task2 ->
                     if (task2.isSuccessful) {
                         imageUrl = task2.result.toString()
+                        addItems()
 
                     }
                 }
@@ -110,7 +114,7 @@ class ItemsAddFragment : Fragment() {
             } else {
                 Toast.makeText(
                     parentFragment!!.context,
-                    "Success Image upload error",
+                    task1.exception!!.localizedMessage,
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -119,7 +123,6 @@ class ItemsAddFragment : Fragment() {
 
     private fun addItems() {
         var id = databaseReference.push().key
-        imageUrl = ""
         val item = Items(
             imageUrl,
             binding.itemName.editText!!.text.toString().trim(),
