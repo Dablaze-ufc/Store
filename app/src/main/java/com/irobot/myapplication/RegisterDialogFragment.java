@@ -32,7 +32,7 @@ import java.util.zip.Inflater;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RegisterDialogFragment extends DialogFragment {
+public class RegisterDialogFragment extends Fragment {
 
     private TextInputLayout
             mInputLayoutRegisterEmail,
@@ -43,13 +43,9 @@ public class RegisterDialogFragment extends DialogFragment {
     String registerEmail, registerPassword, registerConfirmPassword;
 
 
-    @NonNull
     @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(getActivity());
-        LayoutInflater inflater = LayoutInflater.from(getActivity());
-        View view = inflater.inflate(R.layout.fragment_register_dialog, null);
-        materialAlertDialogBuilder.setView(view);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_register_dialog, container, false);
 
         //find View by Id's
         mInputLayoutRegisterEmail = view.findViewById(R.id.textInputLayout_register_email);
@@ -63,7 +59,7 @@ public class RegisterDialogFragment extends DialogFragment {
         //method Calling
         whenButtonIsClicked();
 
-        return materialAlertDialogBuilder.create();
+        return view;
     }
 
     private void registerWithStore() {
@@ -77,8 +73,7 @@ public class RegisterDialogFragment extends DialogFragment {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(getContext(), "Registration Completed", Toast.LENGTH_SHORT).show();
-                        navigateToSignIn(mMaterialButtonRegister);
-                        signOut();
+//                        signOut();
                         //signIn successful
                         FirebaseUser user = mFirebaseRegister.getCurrentUser();
                         user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -87,6 +82,7 @@ public class RegisterDialogFragment extends DialogFragment {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(getContext(), "Check your Email for verification", Toast.LENGTH_SHORT).show();
                                     navigateToSignIn(mMaterialButtonRegister);
+                                    signOut();
                                 } else
                                     Toast.makeText(getContext(), "Could'nt send verification! " + task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                             }

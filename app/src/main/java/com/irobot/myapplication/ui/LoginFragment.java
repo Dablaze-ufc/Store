@@ -56,7 +56,10 @@ public class LoginFragment extends Fragment {
 
         googleSignInOption();
 
-        mButtomEmail.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_signInDialogFragment));
+        mButtomEmail.setOnClickListener(view -> {
+            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_signInDialogFragment);
+
+        });
 
         return root;
 

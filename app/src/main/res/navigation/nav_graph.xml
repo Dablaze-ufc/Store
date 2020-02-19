@@ -13,7 +13,7 @@
             android:id="@+id/action_loginFragment_to_signInDialogFragment"
             app:destination="@id/signInDialogFragment" />
     </fragment>
-    <dialog
+    <fragment
         android:id="@+id/signInDialogFragment"
         android:name="com.irobot.myapplication.SignInDialogFragment"
         android:label="dialog_signup_email"
@@ -21,7 +21,10 @@
         <action
             android:id="@+id/action_signInDialogFragment_to_registerDialogFragment"
             app:destination="@id/registerDialogFragment" />
-    </dialog>
+        <action
+            android:id="@+id/action_signInDialogFragment_to_forgetPasswordFragment2"
+            app:destination="@id/forgetPasswordFragment" />
+    </fragment>
     <fragment
         android:id="@+id/registerDialogFragment"
         android:name="com.irobot.myapplication.RegisterDialogFragment"
@@ -31,4 +34,9 @@
             android:id="@+id/action_registerDialogFragment_to_signInDialogFragment"
             app:destination="@id/signInDialogFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/forgetPasswordFragment"
+        android:name="com.irobot.myapplication.ForgetPasswordFragment"
+        android:label="fragment_forget_password"
+        tools:layout="@layout/fragment_forget_password" />
 </navigation>

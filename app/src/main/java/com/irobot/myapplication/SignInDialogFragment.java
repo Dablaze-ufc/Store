@@ -12,6 +12,7 @@ import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,21 +28,18 @@ import com.google.firebase.auth.FirebaseUser;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SignInDialogFragment extends DialogFragment {
+public class SignInDialogFragment extends Fragment {
     private Button mButtonSignIn;
     private TextInputLayout mSignInEmail, mSignInPassword ;
-    private TextView mTextViewSignUp;
+    private TextView mTextViewSignUp, mTextViewForgetPassword;
 
     String emailSignIn, passwordSignIn;
     FirebaseAuth mAuth;
 
-    @NonNull
+    @Nullable
     @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity());
-        LayoutInflater inflater = LayoutInflater.from(getActivity());
-        final View view = inflater.inflate(R.layout.fragment_sign_in_dialog, null);
-        builder.setView(view);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_sign_in_dialog, container, false);
 
         //Firebase instance
         mAuth = FirebaseAuth.getInstance();
@@ -51,52 +49,39 @@ public class SignInDialogFragment extends DialogFragment {
         mSignInEmail = view.findViewById(R.id.textInputLayout_signIn_email);
         mSignInPassword = view.findViewById(R.id.textInputLayout_signIn_password);
         mTextViewSignUp = view.findViewById(R.id.textView_signUp);
+        mTextViewForgetPassword = view.findViewById(R.id.textView_forgetPassword);
 
 
         //calling method
         onButtonPressed();
-        mTextViewSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Navigation.findNavController(v).navigateUp();
-                Navigation.findNavController(v).navigate(R.id.registerDialogFragment);
-            }
-        });
+        mTextViewSignUp.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_signInDialogFragment_to_registerDialogFragment));
+        mTextViewForgetPassword.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_signInDialogFragment_to_forgetPasswordFragment2));
 
-
-        return builder.create();
+        return view;
     }
 
     private void signInwithStore(){
         emailSignIn = mSignInEmail.getEditText().getText().toString().trim();
         passwordSignIn = mSignInPassword.getEditText().getText().toString().trim();
 
-        mAuth.signInWithEmailAndPassword(emailSignIn, passwordSignIn).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    if (!isUserVerified(mAuth.getCurrentUser())){
-                        Toast.makeText(getContext(), "Please verify your Email to continue to Store" , Toast.LENGTH_SHORT).show();
-                        signOut();
-                    }else{
-                        Toast.makeText(getContext(), "Sign in successful", Toast.LENGTH_SHORT).show();
-                    }
+        mAuth.signInWithEmailAndPassword(emailSignIn, passwordSignIn).addOnCompleteListener(task -> {
+            if (task.isSuccessful()){
+                if (!isUserVerified(mAuth.getCurrentUser())){
+                    Toast.makeText(getContext(), "Please verify your Email to continue to Store" , Toast.LENGTH_SHORT).show();
+                    signOut();
+                }else{
+                    Toast.makeText(getContext(), "Sign in successful", Toast.LENGTH_SHORT).show();
                 }
-                else {
-                    Toast.makeText(getContext(), task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                }
-
+            }
+            else {
+                Toast.makeText(getContext(), task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void onButtonPressed(){
-        mButtonSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signInwithStore();
-            }
-        });
+        mButtonSignIn.setOnClickListener(v ->
+                signInwithStore());
     }
 
     private Boolean isUserVerified(FirebaseUser user){
@@ -108,7 +93,5 @@ public class SignInDialogFragment extends DialogFragment {
             mAuth.signOut();
         }
     }
-
-
 
 }

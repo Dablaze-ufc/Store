@@ -19,6 +19,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -79,7 +81,7 @@
             android:id="@+id/textView_already_signed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/black"
             android:layout_marginTop="32dp"
             android:text="@string/already_signed_in"
             app:layout_constraintEnd_toStartOf="@+id/divider"
@@ -119,6 +121,19 @@
             app:layout_constraintEnd_toEndOf="@+id/textView_signUp"
             app:layout_constraintStart_toStartOf="@+id/textView_already_signed"
             app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+        <TextView
+            android:id="@+id/textView_forgetPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/forget_password"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/button_signIn"
+            app:layout_constraintStart_toStartOf="@+id/button_signIn"
+            app:layout_constraintTop_toBottomOf="@+id/button_signIn" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
