@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
 
 import com.irobot.myapplication.R
@@ -98,8 +99,10 @@ class ItemsAddFragment : Fragment() {
         var outputStream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 40, outputStream)
         var data = outputStream.toByteArray()
-        var firebaseStorage = FirebaseStorage.getInstance().getReference("images/items" + imagePath)
-        var task: UploadTask = firebaseStorage.putBytes(data)
+        val firebaseStorage = FirebaseStorage.getInstance()
+        var firebaseStorageReference: StorageReference =
+            firebaseStorage.getReference("images/items" + imagePath)
+        var task: UploadTask = firebaseStorageReference.putBytes(data)
         task.addOnCompleteListener { task1 ->
             if (task1.isSuccessful) {
                 task1.result!!.storage.downloadUrl.addOnCompleteListener { task2 ->
