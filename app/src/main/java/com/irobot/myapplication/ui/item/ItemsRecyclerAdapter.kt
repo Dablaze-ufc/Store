@@ -26,7 +26,7 @@ class ItemsRecyclerAdapter(private var itemsList: List<Items>?) :
     }
 
     override fun onBindViewHolder(holder: ItemsRecyclerViewHolder, position: Int) {
-        var item: Items = itemsList!!.get(position)
+        val item: Items = itemsList!![position]
         holder.bind(item)
         holder.itemView.findViewById<MaterialCardView>(R.id.item_single)
             .setOnClickListener { v: View ->
@@ -41,10 +41,10 @@ class ItemsRecyclerAdapter(private var itemsList: List<Items>?) :
                 R.layout.items_list, parent, false
             )
         ) {
-        var itemImage: ImageView? = null
-        var itemTittle: TextView? = null
-        var itemDescription: TextView? = null
-        var itemPrice: TextView? = null
+        private var itemImage: ImageView? = null
+        private var itemTittle: TextView? = null
+        private var itemDescription: TextView? = null
+        private var itemPrice: TextView? = null
 
         init {
             itemImage = itemView.findViewById(R.id.item_image)

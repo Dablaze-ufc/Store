@@ -131,6 +131,7 @@ class ItemsAddFragment : Fragment() {
             binding.itemName.editText!!.text.toString().trim(),
             binding.itemDescription.editText!!.text.toString().trim(),
             binding.itemPrice.editText!!.text.toString().trim()
+
         )
         databaseReference.child(id!!).setValue(item).addOnCompleteListener { task ->
             if (task.isSuccessful) {
