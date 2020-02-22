@@ -8,14 +8,16 @@
     tools:context=".ui.LoginFragment">
 
 
-    <ImageView
+    <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="190dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="40dp"
-        android:src="@mipmap/ic_launcher_round"
+        android:scaleType="centerCrop"
+        android:src="@drawable/irobot"
+        app:riv_corner_radius="300dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,40 +26,22 @@
         android:id="@+id/button_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/white"
+        android:padding="13dp"
         android:text="@string/sign_up_with_email"
         android:textAllCaps="false"
         android:textColor="@color/black"
         app:cornerRadius="4dp"
-        android:backgroundTint="@color/white"
-        android:padding="13dp"
         app:icon="@drawable/ic_mail"
         app:iconGravity="start"
         app:iconPadding="4dp"
         app:iconTint="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/button_facebook"
-        app:layout_constraintEnd_toEndOf="@+id/button_facebook"
-        app:layout_constraintStart_toStartOf="@+id/button_facebook"
-        app:strokeColor="@color/black"
-        app:strokeWidth="2dp" />
-
-    <Button
-        android:id="@+id/button_facebook"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/facebook_blue"
-        android:text="@string/sign_up_with_facebook"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        app:cornerRadius="4dp"
-        app:icon="@drawable/ic_facebook"
-        app:iconGravity="start"
-        android:padding="13dp"
-        app:iconPadding="4dp"
         app:layout_constraintBottom_toTopOf="@+id/button_google"
         app:layout_constraintEnd_toEndOf="@+id/button_google"
-        app:layout_constraintStart_toStartOf="@+id/button_google" />
+        app:layout_constraintStart_toStartOf="@+id/button_google"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp" />
 
     <Button
         android:id="@+id/button_google"
