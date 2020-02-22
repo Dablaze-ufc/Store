@@ -2,41 +2,4 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.irobot.myapplication.ui.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
-        <action
-            android:id="@+id/action_loginFragment_to_signInDialogFragment"
-            app:destination="@id/signInDialogFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/signInDialogFragment"
-        android:name="com.irobot.myapplication.SignInDialogFragment"
-        android:label="dialog_signup_email"
-        tools:layout="@layout/fragment_sign_in_dialog" >
-        <action
-            android:id="@+id/action_signInDialogFragment_to_registerDialogFragment"
-            app:destination="@id/registerDialogFragment" />
-        <action
-            android:id="@+id/action_signInDialogFragment_to_forgetPasswordFragment2"
-            app:destination="@id/forgetPasswordFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/registerDialogFragment"
-        android:name="com.irobot.myapplication.RegisterDialogFragment"
-        android:label="fragment_register_dialog"
-        tools:layout="@layout/fragment_register_dialog" >
-        <action
-            android:id="@+id/action_registerDialogFragment_to_signInDialogFragment"
-            app:destination="@id/signInDialogFragment" />
-    </fragment>
-    <dialog
-        android:id="@+id/forgetPasswordFragment"
-        android:name="com.irobot.myapplication.ForgetPasswordFragment"
-        android:label="fragment_forget_password"
-        tools:layout="@layout/fragment_forget_password" />
-</navigation>
+    android:id="@+id/nav_graph" />

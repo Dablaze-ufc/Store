@@ -6,4 +6,7 @@
     <color name="black">#000000</color>
     <color name="facebook_blue">#3B5998</color>
     <color name="white">#FFFFFF</color>
+    <color name="secondPage">#00838F</color>
+    <color name="text">#ffffff</color>
+    <color name="text_two">#94ffffff</color>
 </resources>
