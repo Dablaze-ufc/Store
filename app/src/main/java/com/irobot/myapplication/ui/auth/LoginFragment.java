@@ -26,11 +26,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.irobot.myapplication.R;
+import com.irobot.myapplication.utils.OnLoginListener;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LoginFragment extends Fragment {
+public class LoginFragment extends Fragment implements OnLoginListener {
 
     private static final String TAG = "LoginFragment";
     private int RC_SIGN_IN = 0;
@@ -150,5 +151,9 @@ public class LoginFragment extends Fragment {
     }
 
 
+    @Override
+    public void login() {
+
+    }
 }
 
