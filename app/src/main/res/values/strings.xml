@@ -1,6 +1,27 @@
 <resources>
     <string name="app_name">Store</string>
     <string name="hello_blank_fragment">Hello Blank Fragment</string>
+    <string name="sign_up_with_google">Sign up with Google</string>
+    <string name="sign_up_with_facebook">Sign up with Facebook</string>
+    <string name="sign_up_with_email">Sign up with Email</string>
+
+    <string name="facebook_app_id">228882504836007</string>
+    <string name="fb_login_protocol_scheme">fb228882504836007</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="text">Please SignIn to continue to Store</string>
+    <string name="sign_in">Sign In</string>
+    <string name="cancel">Cancel</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="text_register">Please Register to Continue to store</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register">Register</string>
+    <string name="already_signed_in">Already Signed In?</string>
+    <string name="forget_password">Forget Password?</string>
+    <string name="text_forget_password">Forgot Password?</string>
+    <string name="long_topic">We just need your registered email address to send password reset link</string>
+    <string name="reset_password">Reset password</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
 
