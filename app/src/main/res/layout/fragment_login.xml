@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.irobot.myapplication.ui.auth.LoginFragment">
+    tools:context="com.irobot.myapplication.ui.auth.RegisterFragment">
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/image_irobot"
@@ -18,7 +18,7 @@
         app:riv_corner_radius="300dp" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/editText"
+        android:id="@+id/editText_email_address"
         android:layout_width="300dp"
         android:layout_height="56dp"
         android:layout_gravity="center_horizontal"
@@ -37,21 +37,23 @@
         app:layout_constraintTop_toBottomOf="@id/image_irobot" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/editText_password"
         android:layout_width="300dp"
         android:layout_height="56dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
         android:background="@drawable/bubble"
         android:gravity="center_vertical"
+        android:inputType="textPassword"
         android:hint="@string/password"
+        android:maxLength="6"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
         android:textColor="#ffffff"
         android:textColorHint="#8effffff"
-        app:layout_constraintEnd_toEndOf="@+id/editText"
-        app:layout_constraintStart_toStartOf="@+id/editText"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintEnd_toEndOf="@+id/editText_email_address"
+        app:layout_constraintStart_toStartOf="@+id/editText_email_address"
+        app:layout_constraintTop_toBottomOf="@+id/editText_email_address" />
 
 
     <TextView
@@ -63,7 +65,7 @@
         android:gravity="center"
         android:text="@string/forgot_password"
         android:textColor="#ffffff"
-        app:layout_constraintEnd_toEndOf="@+id/editText2"
-        app:layout_constraintStart_toStartOf="@+id/editText2"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintEnd_toEndOf="@+id/editText_password"
+        app:layout_constraintStart_toStartOf="@+id/editText_password"
+        app:layout_constraintTop_toBottomOf="@+id/editText_password" />
 </androidx.constraintlayout.widget.ConstraintLayout>

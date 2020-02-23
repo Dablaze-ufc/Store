@@ -215,9 +215,9 @@ public class LoginButton extends View {
         super.onDraw(canvas);
 
         if (isLogin) {
-            canvas.drawText(getString(R.string.sign_up), width / 2, dpToPixels(457), signUpPaint);
+            canvas.drawText(getString(R.string.sign_up), width / 2, dpToPixels(500), signUpPaint);
         } else {
-            canvas.drawText(getString(R.string.login), width / 2, dpToPixels(457), loginPaint);
+            canvas.drawText(getString(R.string.login), width / 2, dpToPixels(500), loginPaint);
         }
 
         if (isLogin) {
