@@ -38,16 +38,16 @@ public class SignInDialogFragment extends Fragment implements OnSignUpListener {
         //Firebase instance
         mAuth = FirebaseAuth.getInstance();
 
-        //find views with id's
-        mButtonSignIn = view.findViewById(R.id.button_signIn);
-        mSignInEmail = view.findViewById(R.id.textInputLayout_signIn_email);
-        mSignInPassword = view.findViewById(R.id.textInputLayout_signIn_password);
-        mTextViewSignUp = view.findViewById(R.id.textView_signUp);
-        mTextViewForgetPassword = view.findViewById(R.id.textView_forgetPassword);
+//        //find views with id's
+//        mButtonSignIn = view.findViewById(R.id.button_signIn);
+//        mSignInEmail = view.findViewById(R.id.textInputLayout_signIn_email);
+//        mSignInPassword = view.findViewById(R.id.textInputLayout_signIn_password);
+//        mTextViewSignUp = view.findViewById(R.id.textView_signUp);
+//        mTextViewForgetPassword = view.findViewById(R.id.textView_forgetPassword);
 
 
         //calling method
-        onButtonPressed();
+//        onButtonPressed();
 //        mTextViewSignUp.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_signInDialogFragment_to_registerDialogFragment));
 //        mTextViewForgetPassword.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_signInDialogFragment_to_forgetPasswordFragment2));
 
@@ -73,10 +73,10 @@ public class SignInDialogFragment extends Fragment implements OnSignUpListener {
         });
     }
 
-    private void onButtonPressed(){
-        mButtonSignIn.setOnClickListener(v ->
-                signInwithStore());
-    }
+//    private void onButtonPressed(){
+//        mButtonSignIn.setOnClickListener(v ->
+//                signInwithStore());
+//    }
 
     private Boolean isUserVerified(FirebaseUser user){
         return user.isEmailVerified();

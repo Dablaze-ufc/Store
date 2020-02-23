@@ -6,6 +6,7 @@ import android.widget.FrameLayout
 
 class FlexibleFrameLayout : FrameLayout {
     private var currentOrder = 0
+    private val TAG = "OrderLayout"
 
     constructor(context: Context) : super(context) {
         isChildrenDrawingOrderEnabled = true
@@ -45,9 +46,11 @@ class FlexibleFrameLayout : FrameLayout {
     }
 
     companion object {
-        private const val TAG = "OrderLayout"
-        var ORDER_SIGN_UP_STATE = 0
-        var ORDER_LOGIN_STATE = 1
+
+        @JvmField
+        var ORDER_SIGN_UP_STATE: Int = 0
+        @JvmField
+        var ORDER_LOGIN_STATE: Int = 1
         private val DRAW_ORDERS =
             arrayOf(intArrayOf(0, 1, 2), intArrayOf(2, 1, 0))
     }

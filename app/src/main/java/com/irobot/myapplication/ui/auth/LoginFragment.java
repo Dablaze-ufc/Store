@@ -52,10 +52,10 @@ public class LoginFragment extends Fragment implements OnLoginListener {
 
         googleSignInOption();
 
-        mButtomEmail.setOnClickListener(view -> {
-
-
-        });
+//        mButtomEmail.setOnClickListener(view -> {
+//
+//
+//        });
 
         return root;
 
@@ -66,20 +66,20 @@ public class LoginFragment extends Fragment implements OnLoginListener {
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-        mGoogleClient = GoogleSignIn.getClient(getParentFragment().getContext(), mGoogleOptions);
+        mGoogleClient = GoogleSignIn.getClient(getActivity(), mGoogleOptions);
 
-        mButtonGoogleSignin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signIn();
-            }
-        });
-        mTextViewSignOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signOut();
-            }
-        });
+//        mButtonGoogleSignin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                signIn();
+//            }
+//        });
+//        mTextViewSignOut.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                signOut();
+//            }
+//        });
     }
 
     private void signOut() {

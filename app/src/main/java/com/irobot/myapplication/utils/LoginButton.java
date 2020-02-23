@@ -109,7 +109,7 @@ public class LoginButton extends View {
         loginButtonPaint.setStyle(FILL);
 
         signUpButtonPaint = new Paint();
-        signUpButtonPaint.setColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+        signUpButtonPaint.setColor(ContextCompat.getColor(getContext(), R.color.color_background));
         signUpButtonPaint.setStyle(FILL);
 
         paint2 = new Paint();

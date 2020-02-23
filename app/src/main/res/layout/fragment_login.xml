@@ -1,24 +1,43 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.irobot.myapplication.ui.auth.LoginFragment">
 
-    <EditText
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/image_irobot"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/irobot"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_corner_radius="300dp" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/editText"
         android:layout_width="300dp"
         android:layout_height="56dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="92dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/bubble"
         android:gravity="center_vertical"
         android:hint="@string/email"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
         android:textColor="#ffffff"
-        android:textColorHint="#8effffff" />
+        android:textColorHint="#8effffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image_irobot" />
 
     <EditText
+        android:id="@+id/editText2"
         android:layout_width="300dp"
         android:layout_height="56dp"
         android:layout_gravity="center_horizontal"
@@ -29,15 +48,22 @@
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
         android:textColor="#ffffff"
-        android:textColorHint="#8effffff" />
+        android:textColorHint="#8effffff"
+        app:layout_constraintEnd_toEndOf="@+id/editText"
+        app:layout_constraintStart_toStartOf="@+id/editText"
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
+
 
     <TextView
-        android:layout_width="wrap_content"
         android:id="@+id/forgot_password"
+        android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="@string/forgot_password"
-        android:textColor="#ffffff" />
-</LinearLayout>
+        android:textColor="#ffffff"
+        app:layout_constraintEnd_toEndOf="@+id/editText2"
+        app:layout_constraintStart_toStartOf="@+id/editText2"
+        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+</androidx.constraintlayout.widget.ConstraintLayout>
