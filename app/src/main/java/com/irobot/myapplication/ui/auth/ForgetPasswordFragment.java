@@ -24,12 +24,12 @@ import com.irobot.myapplication.R;
  * A simple {@link Fragment} subclass.
  */
 public class ForgetPasswordFragment extends DialogFragment {
-    private FirebaseAuth mFirebaseAuth;
+    private FirebaseAuth mFireBaseAuth;
     private FirebaseUser mUser;
     private Button mButtonResetPassword;
     private TextInputLayout mTextInputLayout;
 
-    String emailForgetPassword;
+    private String emailForgetPassword;
 
     @NonNull
     @Override
@@ -39,7 +39,7 @@ public class ForgetPasswordFragment extends DialogFragment {
         View view = layoutInflater.inflate(R.layout.fragment_forget_password, null);
         materialAlertDialogBuilder.setView(view);
 
-        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFireBaseAuth = FirebaseAuth.getInstance();
         mButtonResetPassword = view.findViewById(R.id.button_resetPassword);
         mTextInputLayout = view.findViewById(R.id.textInputLayout_forget_password_email);
 
@@ -49,15 +49,13 @@ public class ForgetPasswordFragment extends DialogFragment {
     }
 
     private void buttonClicked() {
-        mButtonResetPassword.setOnClickListener(v -> {
-            editTextError();
-        });
+        mButtonResetPassword.setOnClickListener(v -> editTextError());
     }
 
 
     private void resetPassword() {
         emailForgetPassword = mTextInputLayout.getEditText().getText().toString().trim();
-        mFirebaseAuth.sendPasswordResetEmail(emailForgetPassword).addOnCompleteListener(task -> {
+        mFireBaseAuth.sendPasswordResetEmail(emailForgetPassword).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(getContext(), "Check your email to reset your Password", Toast.LENGTH_SHORT).show();
             } else {

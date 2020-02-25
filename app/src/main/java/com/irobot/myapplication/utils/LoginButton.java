@@ -347,7 +347,7 @@ public class LoginButton extends View {
                 signUpButtonPath.lineTo(currentSignUpX, currentY);
                 signUpButtonPath.lineTo(width, currentY);
 
-                // bopttom reveal
+                // bottom reveal
                 signUpButtonPath.lineTo(width, currentBottomY);
                 signUpButtonPath.lineTo(currentBottomSignUpX, currentBottomY);
                 signUpButtonPath.lineTo(currentLeft, buttonBottom);
@@ -484,15 +484,12 @@ public class LoginButton extends View {
     private float getStartButtonRight() {
         return getResources().getDimensionPixelOffset(R.dimen.bottom_width);
     }
-
     private float dpToPixels(int dp) {
         return getResources().getDisplayMetrics().density * dp;
     }
-
     public void setOnButtonSwitched(OnButtonSwitchedListener callback) {
         this.callback = callback;
     }
-
     @Override
     public void setOnClickListener(@Nullable OnClickListener l) {
         setOnTouchListener((v, event) -> {
@@ -525,17 +522,13 @@ public class LoginButton extends View {
             }
         });
     }
-
     public void setOnSignUpListener(OnSignUpListener listener) {
         onSignUpListener = listener;
     }
-
     public void setOnLoginListener(OnLoginListener listener) {
         onLoginListener = listener;
     }
-
     private String getString(@StringRes int stringId) {
         return getContext().getString(stringId).toUpperCase();
     }
-
 }
