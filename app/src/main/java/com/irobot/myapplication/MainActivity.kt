@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val curvedBottomNavigationView = findViewById<MeowBottomNavigation>(R.id.bottomNavBar)
-
+        curvedBottomNavigationView.show(ID_STORE)
         curvedBottomNavigationView.add(
             MeowBottomNavigation.Model(
                 ID_CART,
@@ -38,7 +38,9 @@ class MainActivity : AppCompatActivity() {
         curvedBottomNavigationView.setCount(ID_STORE, "3")
 
         curvedBottomNavigationView.setOnClickMenuListener {
+            when () {
 
+            }
         }
     }
 
