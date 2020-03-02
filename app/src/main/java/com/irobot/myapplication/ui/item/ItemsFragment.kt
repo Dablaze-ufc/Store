@@ -2,18 +2,17 @@ package com.irobot.myapplication.ui.item
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.database.*
-
 import com.irobot.myapplication.R
 import com.irobot.myapplication.data.Items
 
@@ -37,14 +36,21 @@ class ItemsFragment : Fragment() {
         shimmerFrameLayout = root.findViewById(R.id.shimmer_recycler_view)
         shimmerFrameLayout.startShimmer()
         button.setOnClickListener { v ->
-            Navigation.findNavController(v).navigate(R.id.action_itemsFragment_to_itemsAddFragment)
+
+            Navigation.findNavController(parentFragment!!.activity!!, R.id.fragment)
+                .navigate(R.id.action_itemsFragment_to_itemsAddFragment)
         }
-        setUpRecyclerView()
+//        setUpRecyclerView()
         return root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setUpRecyclerView()
+    }
+
     private fun setUpRecyclerView() {
-        val gridLayoutManager = GridLayoutManager(parentFragment!!.context, 2)
+        val gridLayoutManager = GridLayoutManager(activity, 2)
         recyclerView.addItemDecoration(
             GridMarginDecoration(
                 activity,

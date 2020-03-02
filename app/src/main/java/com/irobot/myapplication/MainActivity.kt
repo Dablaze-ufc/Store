@@ -2,6 +2,7 @@ package com.irobot.myapplication
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.Navigation
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 
 class MainActivity : AppCompatActivity() {
@@ -14,7 +15,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         val curvedBottomNavigationView = findViewById<MeowBottomNavigation>(R.id.bottomNavBar)
+
         curvedBottomNavigationView.show(ID_STORE)
         curvedBottomNavigationView.add(
             MeowBottomNavigation.Model(
@@ -38,8 +41,21 @@ class MainActivity : AppCompatActivity() {
         curvedBottomNavigationView.setCount(ID_STORE, "3")
 
         curvedBottomNavigationView.setOnClickMenuListener {
-            when () {
 
+            val fragmentTransaction = this.supportFragmentManager.beginTransaction()
+            when (it.id) {
+                ID_CART -> Navigation.findNavController(
+                    this,
+                    R.id.fragment
+                ).navigate(R.id.cartFragment)
+                ID_PROFILE -> Navigation.findNavController(
+                    this,
+                    R.id.fragment
+                ).navigate(R.id.profileFragment)
+                else -> Navigation.findNavController(
+                    this,
+                    R.id.fragment
+                ).navigate(R.id.itemsFragment)
             }
         }
     }

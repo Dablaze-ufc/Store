@@ -31,4 +31,14 @@
         android:id="@+id/itemsAddFragment"
         android:name="com.irobot.myapplication.ui.item.ItemsAddFragment"
         android:label="ItemsAddFragment" />
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.irobot.myapplication.cart.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.irobot.myapplication.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>
