@@ -76,4 +76,7 @@ dependencies {
     // RoundedImageView
     implementation 'com.makeramen:roundedimageview:2.3.0'
 
+    //..app/build.gradle
+    implementation 'io.paperdb:paperdb:2.6'
+
 }

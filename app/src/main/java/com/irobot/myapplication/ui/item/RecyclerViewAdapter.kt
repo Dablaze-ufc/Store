@@ -41,7 +41,7 @@ class RecyclerViewAdapter(
         position: Int
     ) { //Here you can fill your row view
         if (holder is ViewHolder) {
-            val (imageUrl, tittle, description, price) = getItem(position)
+            val (_, imageUrl, tittle, description, price) = getItem(position)
             Glide.with(mContext).load(imageUrl).into(holder.imgUser)
             holder.itemTxtTitle.text = tittle
             holder.itemTxtMessage.text = description

@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.item.ItemsFragment">
 
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/shimmer_recycler_view"
+    <android.support.design.widget.AppBarLayout
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/transparent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:shimmer_demo_angle="20"
-        app:shimmer_demo_child_count="10"
-        app:shimmer_demo_grid_child_count="2"
-        app:shimmer_demo_layout="@layout/items_loading"
-        app:shimmer_demo_layout_manager_type="grid">
+        android:fitsSystemWindows="true">
 
-        <androidx.gridlayout.widget.GridLayout
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/white"
+            app:title="Shopping List"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:orientation="vertical"
-            app:rowCount="2">
+            app:titleTextColor="@color/colorAccent">
 
-            <include layout="@layout/items_loading" />
+        </android.support.v7.widget.Toolbar>
 
-            <include layout="@layout/items_loading" />
+    </android.support.design.widget.AppBarLayout>
 
-            <include layout="@layout/items_loading" />
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <include layout="@layout/items_loading" />
-        </androidx.gridlayout.widget.GridLayout>
-    </com.facebook.shimmer.ShimmerFrameLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle"
@@ -43,6 +43,7 @@
         android:scrollbarSize="1dp"
         android:scrollbarStyle="insideInset"
         android:scrollbars="vertical" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/add_button"
@@ -53,4 +54,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,4 +1,4 @@
-package com.irobot.myapplication.cart
+package com.irobot.myapplication.ui.cart
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

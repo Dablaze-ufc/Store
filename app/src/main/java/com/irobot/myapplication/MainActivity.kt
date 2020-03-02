@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
+import com.irobot.myapplication.ui.cart.ShoppingCart
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -38,16 +39,17 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        curvedBottomNavigationView.setCount(ID_STORE, "3")
+        curvedBottomNavigationView.setCount(ID_CART, ShoppingCart.getShoppingCartSize().toString())
 
         curvedBottomNavigationView.setOnClickMenuListener {
-
-            val fragmentTransaction = this.supportFragmentManager.beginTransaction()
             when (it.id) {
-                ID_CART -> Navigation.findNavController(
-                    this,
-                    R.id.fragment
-                ).navigate(R.id.cartFragment)
+                ID_CART -> {
+                    Navigation.findNavController(
+                        this,
+                        R.id.fragment
+                    ).navigate(R.id.cartFragment)
+                    curvedBottomNavigationView.clearCount(ID_CART)
+                }
                 ID_PROFILE -> Navigation.findNavController(
                     this,
                     R.id.fragment

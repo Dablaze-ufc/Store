@@ -6,11 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.facebook.shimmer.ShimmerFrameLayout
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.database.*
 import com.irobot.myapplication.R
@@ -21,9 +22,8 @@ import com.irobot.myapplication.data.Items
  */
 class ItemsFragment : Fragment() {
 
-    private var items: List<Items> = ArrayList()
+    private var items: ArrayList<Items>? = null
     private lateinit var recyclerView: RecyclerView
-    private lateinit var shimmerFrameLayout: ShimmerFrameLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,8 +33,15 @@ class ItemsFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_items, container, false)
         recyclerView = root.findViewById(R.id.recycle)
         val button = root.findViewById<MaterialButton>(R.id.add_button)
-        shimmerFrameLayout = root.findViewById(R.id.shimmer_recycler_view)
-        shimmerFrameLayout.startShimmer()
+        val swipeRefreshLayout = root.findViewById<SwipeRefreshLayout>(R.id.swipeRefreshLayout)
+        swipeRefreshLayout.setColorSchemeColors(
+            ContextCompat.getColor(
+                parentFragment!!.context!!,
+                R.color.colorAccent
+            )
+        )
+        swipeRefreshLayout.isRefreshing = true
+//        setSupportActionBar(toolbar)
         button.setOnClickListener { v ->
 
             Navigation.findNavController(parentFragment!!.activity!!, R.id.fragment)
@@ -61,10 +68,9 @@ class ItemsFragment : Fragment() {
             )
         )
         getItems()
-        val adapter = ItemsRecyclerAdapter(items)
+        val adapter = RecyclerViewAdapter(parentFragment!!.activity!!, items!!)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = gridLayoutManager
-        shimmerFrameLayout.stopShimmer()
     }
 
     private fun getItems() {
@@ -78,10 +84,10 @@ class ItemsFragment : Fragment() {
             }
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                (items as ArrayList?)!!.clear()
+                items!!.clear()
                 for (snapshot in dataSnapshot.children) {
                     val item: Items = snapshot.getValue(Items::class.java)!!
-                    (items as ArrayList).add(item)
+                    items!!.add(item)
                 }
 
             }

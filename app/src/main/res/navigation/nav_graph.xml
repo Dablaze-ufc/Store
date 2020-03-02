@@ -33,7 +33,7 @@
         android:label="ItemsAddFragment" />
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.irobot.myapplication.cart.CartFragment"
+        android:name="com.irobot.myapplication.ui.cart.CartFragment"
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart" />
     <fragment
