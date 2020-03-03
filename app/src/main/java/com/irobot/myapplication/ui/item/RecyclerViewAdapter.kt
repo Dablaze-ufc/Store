@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -46,6 +47,10 @@ class RecyclerViewAdapter(
             holder.itemTxtTitle.text = tittle
             holder.itemTxtMessage.text = description
             holder.itemTxtPrice.text = price
+            holder.addButton.setOnClickListener {
+
+            }
+
         }
     }
 
@@ -72,6 +77,7 @@ class RecyclerViewAdapter(
         val itemTxtMessage: TextView =
             itemView.findViewById<View>(R.id.item_txt_message) as TextView
         val itemTxtPrice: TextView = itemView.findViewById<View>(R.id.item_txt_price) as TextView
+        val addButton = itemView.findViewById<ImageButton>(R.id.add_to_cart)
 
         init {
             // ButterKnife.bind(this, itemView);

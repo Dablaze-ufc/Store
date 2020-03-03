@@ -6,12 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.database.*
 import com.irobot.myapplication.R
@@ -22,7 +20,7 @@ import com.irobot.myapplication.data.Items
  */
 class ItemsFragment : Fragment() {
 
-    private var items: ArrayList<Items>? = null
+    private lateinit var items: ArrayList<Items>
     private lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(
@@ -33,15 +31,6 @@ class ItemsFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_items, container, false)
         recyclerView = root.findViewById(R.id.recycle)
         val button = root.findViewById<MaterialButton>(R.id.add_button)
-        val swipeRefreshLayout = root.findViewById<SwipeRefreshLayout>(R.id.swipeRefreshLayout)
-        swipeRefreshLayout.setColorSchemeColors(
-            ContextCompat.getColor(
-                parentFragment!!.context!!,
-                R.color.colorAccent
-            )
-        )
-        swipeRefreshLayout.isRefreshing = true
-//        setSupportActionBar(toolbar)
         button.setOnClickListener { v ->
 
             Navigation.findNavController(parentFragment!!.activity!!, R.id.fragment)
@@ -57,6 +46,7 @@ class ItemsFragment : Fragment() {
     }
 
     private fun setUpRecyclerView() {
+
         val gridLayoutManager = GridLayoutManager(activity, 2)
         recyclerView.addItemDecoration(
             GridMarginDecoration(
@@ -68,12 +58,14 @@ class ItemsFragment : Fragment() {
             )
         )
         getItems()
-        val adapter = RecyclerViewAdapter(parentFragment!!.activity!!, items!!)
+        val adapter = RecyclerViewAdapter(requireParentFragment().requireActivity(), items)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = gridLayoutManager
     }
 
     private fun getItems() {
+
+        items = ArrayList()
         val database: Query = FirebaseDatabase.getInstance().getReference("items")
             .orderByKey()
 
@@ -84,13 +76,15 @@ class ItemsFragment : Fragment() {
             }
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                items!!.clear()
+                items.clear()
                 for (snapshot in dataSnapshot.children) {
                     val item: Items = snapshot.getValue(Items::class.java)!!
-                    items!!.add(item)
-                }
+                    items.add(item)
 
+
+                }
             }
+
 
         })
     }

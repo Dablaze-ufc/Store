@@ -2,6 +2,10 @@
     <string name="app_name">Store</string>
     <string name="hello_blank_fragment">Hello Blank Fragment</string>
     <string name="image_for_the_item">Image for the item</string>
+    <string name="productimage">ProductImage</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="price">Price</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 

@@ -1,4 +1,4 @@
-package com.irobot.myapplication.profile
+package com.irobot.myapplication.ui.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater

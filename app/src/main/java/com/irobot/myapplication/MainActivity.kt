@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.irobot.myapplication.ui.cart.ShoppingCart
+import io.paperdb.Paper
 
 class MainActivity : AppCompatActivity() {
     companion object {
+
         private const val ID_STORE = 1
         private const val ID_CART = 2
         private const val ID_PROFILE = 3
@@ -16,9 +18,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        Paper.init(this)
         val curvedBottomNavigationView = findViewById<MeowBottomNavigation>(R.id.bottomNavBar)
-
         curvedBottomNavigationView.show(ID_STORE)
         curvedBottomNavigationView.add(
             MeowBottomNavigation.Model(

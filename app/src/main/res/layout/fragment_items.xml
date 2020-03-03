@@ -1,49 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.item.ItemsFragment">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/transparent"
-        android:layout_width="match_parent"
-        android:fitsSystemWindows="true">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/white"
-            app:title="Shopping List"
-            android:layout_width="match_parent"
-            app:titleTextColor="@color/colorAccent">
-
-        </android.support.v7.widget.Toolbar>
-
-    </android.support.design.widget.AppBarLayout>
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scrollbarSize="1dp"
+        android:scrollbarStyle="insideInset"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:scrollbarSize="1dp"
-        android:scrollbarStyle="insideInset"
-        android:scrollbars="vertical" />
-    </android.support.v4.widget.SwipeRefreshLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/add_button"
@@ -54,4 +28,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
