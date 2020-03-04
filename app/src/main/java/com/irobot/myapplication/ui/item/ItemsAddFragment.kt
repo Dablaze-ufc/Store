@@ -8,19 +8,18 @@ import android.graphics.ImageDecoder
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
-
 import com.irobot.myapplication.R
 import com.irobot.myapplication.data.Items
 import com.irobot.myapplication.databinding.FragmentItemsAddBinding
@@ -91,7 +90,7 @@ class ItemsAddFragment : Fragment() {
 
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.setType("image/*")
+        intent.type = "image/*"
         startActivityForResult(intent, 67)
     }
 
@@ -127,6 +126,7 @@ class ItemsAddFragment : Fragment() {
     private fun addItems() {
         var id = databaseReference.push().key
         val item = Items(
+            id,
             imageUrl,
             binding.itemName.editText!!.text.toString().trim(),
             binding.itemDescription.editText!!.text.toString().trim(),

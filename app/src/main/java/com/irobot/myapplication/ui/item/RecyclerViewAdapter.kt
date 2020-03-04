@@ -7,10 +7,18 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
+import com.irobot.myapplication.MainActivity
 import com.irobot.myapplication.R
+import com.irobot.myapplication.data.CartItem
 import com.irobot.myapplication.data.Items
+import com.irobot.myapplication.ui.cart.ShoppingCart
+import io.reactivex.Observable
+import io.reactivex.ObservableOnSubscribe
+import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 /**
@@ -47,9 +55,31 @@ class RecyclerViewAdapter(
             holder.itemTxtTitle.text = tittle
             holder.itemTxtMessage.text = description
             holder.itemTxtPrice.text = price
-            holder.addButton.setOnClickListener {
+            Observable.create(ObservableOnSubscribe<MutableList<CartItem>> {
+                holder.addButton.setOnClickListener { view ->
+                    val item = CartItem(getItem(position))
+                    ShoppingCart.addItem(item)
 
+                    Snackbar.make(
+                        (holder.itemView.context as MainActivity).constraint,
+                        "${item.product.tittle} added to your cart", Snackbar.LENGTH_LONG
+                    ).show()
+                    it.onNext(ShoppingCart.getCart())
+
+                }
+            }).subscribe { cart ->
+                var quantity = 0
+                cart.forEach { cartItem ->
+                    quantity += cartItem.quantity
+                }
+                (holder.itemView.context as MainActivity).bottomNavBar.setCount(
+                    2,
+                    quantity.toString()
+                )
+                Toast.makeText(holder.itemView.context, "Cart size $quantity", Toast.LENGTH_SHORT)
+                    .show()
             }
+
 
         }
     }
@@ -81,13 +111,13 @@ class RecyclerViewAdapter(
 
         init {
             // ButterKnife.bind(this, itemView);
-            itemView.setOnClickListener {
-                mItemClickListener!!.onItemClick(
-                    itemView,
-                    adapterPosition,
-                    modelList[adapterPosition]
-                )
-            }
+//            itemView.setOnClickListener {
+//                mItemClickListener!!.onItemClick(
+//                    itemView,
+//                    adapterPosition,
+//                    modelList[adapterPosition]
+//                )
+//            }
         }
     }
 

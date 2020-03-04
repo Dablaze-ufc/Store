@@ -47,7 +47,7 @@ class ItemsFragment : Fragment() {
 
     private fun setUpRecyclerView() {
 
-        val gridLayoutManager = GridLayoutManager(activity, 2)
+
         recyclerView.addItemDecoration(
             GridMarginDecoration(
                 activity,
@@ -60,6 +60,9 @@ class ItemsFragment : Fragment() {
         getItems()
         val adapter = RecyclerViewAdapter(requireParentFragment().requireActivity(), items)
         recyclerView.adapter = adapter
+        val gridLayoutManager = GridLayoutManager(activity, 2)
+//        adapter.setHasStableIds(true)
+        recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = gridLayoutManager
     }
 

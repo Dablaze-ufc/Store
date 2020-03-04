@@ -20,7 +20,9 @@
             app:destination="@id/itemsDetailsFragment" />
         <action
             android:id="@+id/action_itemsFragment_to_itemsAddFragment"
-            app:destination="@id/itemsAddFragment" />
+            app:destination="@id/itemsAddFragment"
+            app:popUpTo="@id/itemsFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/itemsDetailsFragment"

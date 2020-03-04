@@ -1,10 +1,12 @@
 package com.irobot.myapplication
 
 import android.os.Bundle
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
-import com.irobot.myapplication.ui.cart.ShoppingCart
 import io.paperdb.Paper
 
 class MainActivity : AppCompatActivity() {
@@ -13,13 +15,21 @@ class MainActivity : AppCompatActivity() {
         private const val ID_STORE = 1
         private const val ID_CART = 2
         private const val ID_PROFILE = 3
+
     }
+
+    private lateinit var mNavController: NavController
+
+    private lateinit var curvedBottomNavigationView: MeowBottomNavigation
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Paper.init(this)
-        val curvedBottomNavigationView = findViewById<MeowBottomNavigation>(R.id.bottomNavBar)
+        curvedBottomNavigationView = findViewById(R.id.bottomNavBar)
+        mNavController = Navigation.findNavController(this, R.id.fragment)
+        initDestinationListener()
         curvedBottomNavigationView.show(ID_STORE)
         curvedBottomNavigationView.add(
             MeowBottomNavigation.Model(
@@ -40,27 +50,36 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        curvedBottomNavigationView.setCount(ID_CART, ShoppingCart.getShoppingCartSize().toString())
+//        curvedBottomNavigationView.setCount(ID_CART, ShoppingCart.getShoppingCartSize().toString())
 
         curvedBottomNavigationView.setOnClickMenuListener {
             when (it.id) {
                 ID_CART -> {
-                    Navigation.findNavController(
-                        this,
-                        R.id.fragment
-                    ).navigate(R.id.cartFragment)
+                    mNavController.navigate(R.id.cartFragment)
                     curvedBottomNavigationView.clearCount(ID_CART)
                 }
-                ID_PROFILE -> Navigation.findNavController(
-                    this,
-                    R.id.fragment
-                ).navigate(R.id.profileFragment)
-                else -> Navigation.findNavController(
-                    this,
-                    R.id.fragment
-                ).navigate(R.id.itemsFragment)
+                ID_PROFILE -> mNavController.navigate(R.id.profileFragment)
+                else -> mNavController.navigate(R.id.itemsFragment)
             }
         }
+    }
+
+    private fun initDestinationListener() {
+        mNavController.addOnDestinationChangedListener { _, destination, arguments ->
+            when (destination.id) {
+                R.id.itemsAddFragment -> hideBottomNav()
+                else -> showBottomNav()
+
+            }
+        }
+    }
+
+    private fun hideBottomNav() {
+        curvedBottomNavigationView.visibility = GONE
+    }
+
+    private fun showBottomNav() {
+        curvedBottomNavigationView.visibility = VISIBLE
     }
 
 
