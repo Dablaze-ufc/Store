@@ -43,4 +43,27 @@
         android:name="com.irobot.myapplication.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <dialog
+        android:id="@+id/forgetPasswordFragment"
+        android:name="com.irobot.myapplication.ForgetPasswordFragment"
+        android:label="ForgetPasswordFragment" />
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.irobot.myapplication.ui.auth.RegisterFragment"
+        android:label="RegisterFragment">
+        <action
+            android:id="@+id/action_registerFragment_to_signInDialogFragment"
+            app:destination="@id/signInDialogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signInDialogFragment"
+        android:name="com.irobot.myapplication.SignInDialogFragment"
+        android:label="SignInDialogFragment">
+        <action
+            android:id="@+id/action_signInDialogFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_signInDialogFragment_to_forgetPasswordFragment"
+            app:destination="@id/forgetPasswordFragment" />
+    </fragment>
 </navigation>

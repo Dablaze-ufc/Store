@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
+import com.google.android.material.appbar.MaterialToolbar
 import io.paperdb.Paper
 
 class MainActivity : AppCompatActivity() {
@@ -18,6 +19,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private lateinit var toolBar: MaterialToolbar
+
     private lateinit var mNavController: NavController
 
     private lateinit var curvedBottomNavigationView: MeowBottomNavigation
@@ -27,8 +30,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Paper.init(this)
+
         curvedBottomNavigationView = findViewById(R.id.bottomNavBar)
         mNavController = Navigation.findNavController(this, R.id.fragment)
+        toolBar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolBar)
         initDestinationListener()
         curvedBottomNavigationView.show(ID_STORE)
         curvedBottomNavigationView.add(
@@ -80,6 +86,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun showBottomNav() {
         curvedBottomNavigationView.visibility = VISIBLE
+    }
+
+    private fun hideCustomToolBar() {
+        toolBar.visibility = GONE
+    }
+
+    private fun showCustomToolBar() {
+        toolBar.visibility = VISIBLE
     }
 
 
