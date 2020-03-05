@@ -58,8 +58,8 @@ class ItemsFragment : Fragment() {
             )
         )
         getItems()
-        val adapter = RecyclerViewAdapter(requireParentFragment().requireActivity(), items)
-        recyclerView.adapter = adapter
+//        val adapter = RecyclerViewAdapter(requireContext(), items)
+//        recyclerView.adapter = adapter
         val gridLayoutManager = GridLayoutManager(activity, 2)
 //        adapter.setHasStableIds(true)
         recyclerView.setHasFixedSize(true)
@@ -83,9 +83,9 @@ class ItemsFragment : Fragment() {
                 for (snapshot in dataSnapshot.children) {
                     val item: Items = snapshot.getValue(Items::class.java)!!
                     items.add(item)
-
-
                 }
+                val adapter = RecyclerViewAdapter(requireContext(), items)
+                recyclerView.adapter = adapter
             }
 
 
