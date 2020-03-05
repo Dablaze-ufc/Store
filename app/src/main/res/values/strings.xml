@@ -22,6 +22,11 @@
     <string name="long_topic">We just need your registered email address to send password reset link</string>
     <string name="reset_password">Reset password</string>
 
+    <string name="image_for_the_item">Image for the item</string>
+    <string name="productimage">ProductImage</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="price">Price</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 

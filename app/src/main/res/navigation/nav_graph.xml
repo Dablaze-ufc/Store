@@ -3,40 +3,67 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/itemsFragment">
+
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.irobot.myapplication.ui.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/itemsFragment"
+        android:name="com.irobot.myapplication.ui.item.ItemsFragment"
+        android:label="fragment_items"
+        tools:layout="@layout/fragment_items">
         <action
-            android:id="@+id/action_loginFragment_to_signInDialogFragment"
+            android:id="@+id/action_itemsFragment_to_itemsDetailsFragment"
+            app:destination="@id/itemsDetailsFragment" />
+        <action
+            android:id="@+id/action_itemsFragment_to_itemsAddFragment"
+            app:destination="@id/itemsAddFragment"
+            app:popUpTo="@id/itemsFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemsDetailsFragment"
+        android:name="com.irobot.myapplication.ui.item.ItemsDetailsFragment"
+        android:label="fragment_items_details"
+        tools:layout="@layout/fragment_items_details" />
+    <fragment
+        android:id="@+id/itemsAddFragment"
+        android:name="com.irobot.myapplication.ui.item.ItemsAddFragment"
+        android:label="ItemsAddFragment" />
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.irobot.myapplication.ui.cart.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.irobot.myapplication.ui.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <dialog
+        android:id="@+id/forgetPasswordFragment"
+        android:name="com.irobot.myapplication.ForgetPasswordFragment"
+        android:label="ForgetPasswordFragment" />
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.irobot.myapplication.ui.auth.RegisterFragment"
+        android:label="RegisterFragment">
+        <action
+            android:id="@+id/action_registerFragment_to_signInDialogFragment"
             app:destination="@id/signInDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/signInDialogFragment"
         android:name="com.irobot.myapplication.SignInDialogFragment"
-        android:label="dialog_signup_email"
-        tools:layout="@layout/fragment_sign_in_dialog" >
+        android:label="SignInDialogFragment">
         <action
-            android:id="@+id/action_signInDialogFragment_to_registerDialogFragment"
-            app:destination="@id/registerDialogFragment" />
+            android:id="@+id/action_signInDialogFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
         <action
-            android:id="@+id/action_signInDialogFragment_to_forgetPasswordFragment2"
+            android:id="@+id/action_signInDialogFragment_to_forgetPasswordFragment"
             app:destination="@id/forgetPasswordFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/registerDialogFragment"
-        android:name="com.irobot.myapplication.RegisterDialogFragment"
-        android:label="fragment_register_dialog"
-        tools:layout="@layout/fragment_register_dialog" >
-        <action
-            android:id="@+id/action_registerDialogFragment_to_signInDialogFragment"
-            app:destination="@id/signInDialogFragment" />
-    </fragment>
-    <dialog
-        android:id="@+id/forgetPasswordFragment"
-        android:name="com.irobot.myapplication.ForgetPasswordFragment"
-        android:label="fragment_forget_password"
-        tools:layout="@layout/fragment_forget_password" />
 </navigation>

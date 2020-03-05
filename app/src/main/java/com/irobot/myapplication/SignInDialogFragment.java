@@ -1,15 +1,7 @@
 package com.irobot.myapplication;
 
 
-import android.app.Dialog;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +9,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -54,8 +47,8 @@ public class SignInDialogFragment extends Fragment {
 
         //calling method
         onButtonPressed();
-        mTextViewSignUp.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_signInDialogFragment_to_registerDialogFragment));
-        mTextViewForgetPassword.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_signInDialogFragment_to_forgetPasswordFragment2));
+        mTextViewSignUp.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_signInDialogFragment_to_registerFragment));
+        mTextViewForgetPassword.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_signInDialogFragment_to_forgetPasswordFragment));
 
         return view;
     }
