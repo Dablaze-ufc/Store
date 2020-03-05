@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.irobot.myapplication.ui.auth.RegisterFragment">
+    tools:context="com.irobot.myapplication.ui.auth.SignInDialogFragment">
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/image_irobot"
@@ -36,7 +36,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/image_irobot" />
 
-    <com.google.android.material.textfield.TextInputEditText
+    <EditText
         android:id="@+id/editText_password"
         android:layout_width="300dp"
         android:layout_height="56dp"
