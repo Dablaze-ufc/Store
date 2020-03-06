@@ -30,12 +30,12 @@ class Login2Activity : AppCompatActivity() {
         val registerFragment = RegisterFragment()
         val signInFragment =
             SignInFragment()
-        supportFragmentManager.beginTransaction().replace(R.id.sign_up_fragment, registerFragment)
-            .replace(R.id.login_fragment, signInFragment)
+        supportFragmentManager.beginTransaction().replace(R.id.login_fragment, signInFragment)
+            .replace(R.id.sign_up_fragment, registerFragment)
             .commit()
         binding.loginFragment.rotation = -90f
-        binding.button.setOnSignUpListener(registerFragment)
-        binding.button.setOnLoginListener(signInFragment)
+        binding.button.setOnSignUpListener(signInFragment)
+        binding.button.setOnLoginListener(registerFragment)
         binding.button.setOnClickListener { view ->
             switchFragment(view)
         }
@@ -50,6 +50,7 @@ class Login2Activity : AppCompatActivity() {
             }
 
         })
+        binding.loginFragment.visibility = INVISIBLE
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -58,6 +59,7 @@ class Login2Activity : AppCompatActivity() {
         binding.loginFragment.pivotY = binding.loginFragment.height.toFloat();
         binding.signUpFragment.pivotX = (binding.signUpFragment.width / 2).toFloat();
         binding.signUpFragment.pivotY = binding.signUpFragment.height.toFloat();
+
 
     }
 
@@ -69,7 +71,7 @@ class Login2Activity : AppCompatActivity() {
                 override fun onAnimationEnd(animation: Animator?) {
                     super.onAnimationEnd(animation)
                     binding.signUpFragment.visibility = INVISIBLE
-                    binding.signUpFragment.rotation = -90f
+                    binding.signUpFragment.rotation = 90f
                     binding.wrapper.setDrawOrder(ORDER_LOGIN_STATE)
                 }
 
