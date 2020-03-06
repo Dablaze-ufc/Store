@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.irobot.myapplication.ui.auth.SignInDialogFragment">
+    tools:context="com.irobot.myapplication.ui.auth.SignInFragment">
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/image_irobot"

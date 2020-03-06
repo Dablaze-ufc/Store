@@ -63,5 +63,8 @@ dependencies {
     //spinkit ProgressBar
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 
+    //databinding
+    annotationProcessor 'com.android.databinding:compiler:3.1.4'
+
 
 }
