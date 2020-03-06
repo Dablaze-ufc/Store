@@ -55,10 +55,10 @@ class Login2Activity : AppCompatActivity() {
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
-        binding.loginFragment.pivotX = (binding.loginFragment.width / 2).toFloat();
-        binding.loginFragment.pivotY = binding.loginFragment.height.toFloat();
-        binding.signUpFragment.pivotX = (binding.signUpFragment.width / 2).toFloat();
-        binding.signUpFragment.pivotY = binding.signUpFragment.height.toFloat();
+        binding.loginFragment.pivotX = (binding.loginFragment.width / 2).toFloat()
+        binding.loginFragment.pivotY = binding.loginFragment.height.toFloat()
+        binding.signUpFragment.pivotX = (binding.signUpFragment.width / 2).toFloat()
+        binding.signUpFragment.pivotY = binding.signUpFragment.height.toFloat()
 
 
     }
