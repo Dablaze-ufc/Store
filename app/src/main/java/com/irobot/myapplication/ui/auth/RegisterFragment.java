@@ -19,13 +19,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.irobot.myapplication.R;
-import com.irobot.myapplication.utils.OnLoginListener;
+import com.irobot.myapplication.utils.OnSignUpListener;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RegisterFragment extends Fragment implements OnLoginListener {
+public class RegisterFragment extends Fragment implements OnSignUpListener {
 
     String registerEmail, registerPassword, registerConfirmPassword;
     private TextInputLayout
@@ -117,9 +117,8 @@ public class RegisterFragment extends Fragment implements OnLoginListener {
         }
     }
 
-
     @Override
-    public void login() {
+    public void signUp() {
 
     }
 }

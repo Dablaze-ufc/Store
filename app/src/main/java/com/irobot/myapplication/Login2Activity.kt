@@ -20,7 +20,6 @@ import com.irobot.myapplication.utils.OnButtonSwitchedListener
 class Login2Activity : AppCompatActivity() {
     private lateinit var binding: ActivityLogin2Binding
     private var isLogin = true
-    private var listner: OnButtonSwitchedListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,14 +27,13 @@ class Login2Activity : AppCompatActivity() {
             DataBindingUtil.setContentView(this, R.layout.activity_login2)
 
         val registerFragment = RegisterFragment()
-        val signInFragment =
-            SignInFragment()
-        supportFragmentManager.beginTransaction().replace(R.id.login_fragment, signInFragment)
-            .replace(R.id.sign_up_fragment, registerFragment)
+        val signInFragment = SignInFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.sign_up_fragment, registerFragment)
+            .replace(R.id.login_fragment, signInFragment)
             .commit()
         binding.loginFragment.rotation = -90f
-        binding.button.setOnSignUpListener(signInFragment)
-        binding.button.setOnLoginListener(registerFragment)
+        binding.button.setOnSignUpListener(registerFragment)
+        binding.button.setOnLoginListener(signInFragment)
         binding.button.setOnClickListener { view ->
             switchFragment(view)
         }

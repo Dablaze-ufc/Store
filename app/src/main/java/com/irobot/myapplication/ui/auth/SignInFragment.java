@@ -17,12 +17,12 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.irobot.myapplication.R;
-import com.irobot.myapplication.utils.OnSignUpListener;
+import com.irobot.myapplication.utils.OnLoginListener;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SignInFragment extends Fragment implements OnSignUpListener {
+public class SignInFragment extends Fragment implements OnLoginListener {
     String emailSignIn, passwordSignIn;
     FirebaseAuth mAuth;
     private Button mButtonSignIn;
@@ -87,7 +87,7 @@ public class SignInFragment extends Fragment implements OnSignUpListener {
     }
 
     @Override
-    public void signUp() {
+    public void login() {
 
     }
 }
