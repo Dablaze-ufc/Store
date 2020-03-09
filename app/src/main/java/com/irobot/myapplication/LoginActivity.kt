@@ -17,14 +17,14 @@ import com.irobot.myapplication.utils.FlexibleFrameLayout.Companion.ORDER_LOGIN_
 import com.irobot.myapplication.utils.FlexibleFrameLayout.Companion.ORDER_SIGN_UP_STATE
 import com.irobot.myapplication.utils.OnButtonSwitchedListener
 
-class Login2Activity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLogin2Binding
     private var isLogin = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding =
-            DataBindingUtil.setContentView(this, R.layout.activity_login2)
+            DataBindingUtil.setContentView(this, R.layout.activity_login)
 
         val registerFragment = RegisterFragment()
         val signInFragment = SignInFragment()
@@ -41,7 +41,7 @@ class Login2Activity : AppCompatActivity() {
             override fun onButtonSwitched(isLogin: Boolean) {
                 binding.root.setBackgroundColor(
                     ContextCompat.getColor(
-                        this@Login2Activity,
+                        this@LoginActivity,
                         if (isLogin) R.color.colorPrimary else R.color.secondPage
                     )
                 )
