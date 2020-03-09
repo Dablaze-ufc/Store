@@ -10,7 +10,7 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import com.irobot.myapplication.databinding.ActivityLogin2Binding
+import com.irobot.myapplication.databinding.ActivityLoginBinding
 import com.irobot.myapplication.ui.auth.RegisterFragment
 import com.irobot.myapplication.ui.auth.SignInFragment
 import com.irobot.myapplication.utils.FlexibleFrameLayout.Companion.ORDER_LOGIN_STATE
@@ -18,7 +18,7 @@ import com.irobot.myapplication.utils.FlexibleFrameLayout.Companion.ORDER_SIGN_U
 import com.irobot.myapplication.utils.OnButtonSwitchedListener
 
 class LoginActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityLogin2Binding
+    private lateinit var binding: ActivityLoginBinding
     private var isLogin = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
