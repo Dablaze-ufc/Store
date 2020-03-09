@@ -19,7 +19,7 @@ import androidx.fragment.app.Fragment;
 
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.FoldingCube;
-import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.irobot.myapplication.MainActivity;
@@ -32,7 +32,7 @@ import com.irobot.myapplication.utils.OnLoginListener;
 public class SignInFragment extends Fragment implements OnLoginListener {
     private FirebaseAuth mAuth;
 
-    private TextInputLayout mSignInEmail, mSignInPassword;
+    private TextInputEditText mSignInEmail, mSignInPassword;
     private TextView mTextViewForgetPassword;
     private ProgressBar mprogressBar;
 
@@ -69,15 +69,16 @@ public class SignInFragment extends Fragment implements OnLoginListener {
 
             }
         };
-        mSignInEmail.getEditText().addTextChangedListener(watcher);
-        mSignInPassword.getEditText().addTextChangedListener(watcher);
+
+        mSignInEmail.addTextChangedListener(watcher);
+        mSignInPassword.addTextChangedListener(watcher);
 
         return view;
     }
 
     private void signInwithStore() {
-        String emailSignIn = mSignInEmail.getEditText().getText().toString().trim();
-        String passwordSignIn = mSignInPassword.getEditText().getText().toString().trim();
+        String emailSignIn = mSignInEmail.getText().toString().trim();
+        String passwordSignIn = mSignInPassword.getText().toString().trim();
 
         mAuth.signInWithEmailAndPassword(emailSignIn, passwordSignIn).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -109,20 +110,19 @@ public class SignInFragment extends Fragment implements OnLoginListener {
         }
     }
 
-    private void validateFields(TextInputLayout emailInput, TextInputLayout passwordInput) {
-        String email = emailInput.getEditText().getText().toString();
-        String password = emailInput.getEditText().getText().toString();
-        if (Patterns.EMAIL_ADDRESS.matcher(email).matches() && password.length() == 6) {
+    private void validateFields(TextInputEditText emailInput, TextInputEditText passwordInput) {
+        String email = emailInput.getText().toString();
+        String password = emailInput.getText().toString();
+        if (Patterns.EMAIL_ADDRESS.matcher(email).matches() && password.length() == 8) {
             disableViews();
             mprogressBar.setVisibility(View.VISIBLE);
             login();
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches() && password.length() == 8) {
             emailInput.setError("Please Enter A valid Email Address");
-        } else if (password.length() == 0) {
+        } else if (Patterns.EMAIL_ADDRESS.matcher(email).matches() && password.length() <= 7) {
             passwordInput.setError("Password Must be 6 characters long");
         } else {
-            emailInput.setError("Please Enter A valid Email Address");
-            passwordInput.setError("Password Must be 6 characters long");
+
         }
 
     }

@@ -51,11 +51,11 @@
             app:boxCornerRadiusTopStart="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
-            app:passwordToggleEnabled="true">
+            app:layout_constraintTop_toBottomOf="@+id/textView2">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/email_editText"
+                android:inputType="textEmailAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -79,6 +79,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/password_editText"
+                android:inputType="number"
+                android:maxLength="8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -95,17 +97,19 @@
             app:layout_constraintStart_toStartOf="@+id/textInputLayout_signIn_password"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout_signIn_password" />
 
-        <com.github.ybq.android.spinkit.SpinKitView
-            android:id="@+id/spin_kit"
-            style="@style/SpinKitView.Large.Circle"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            app:SpinKit_Color="@color/text"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/spin_kit"
+        style="@style/SpinKitView.FoldingCube"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="64dp"
+        android:visibility="gone"
+        app:SpinKit_Color="@color/text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
