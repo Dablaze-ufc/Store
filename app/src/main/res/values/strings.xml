@@ -24,6 +24,8 @@
     <string name="forgot_password">Forget Password</string>
     <string name="login">Login</string>
     <string name="or">or</string>
+    <string name="google">Google</string>
+    <string name="email_address">Email Address</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
