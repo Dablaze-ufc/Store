@@ -2,7 +2,6 @@ package com.irobot.myapplication.ui.auth;
 
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,7 +24,7 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,7 +42,7 @@ import com.irobot.myapplication.utils.OnSignUpListener;
 public class RegisterFragment extends Fragment implements OnSignUpListener {
 
     String registerEmail, registerPassword, registerConfirmPassword;
-    private TextInputLayout
+    private TextInputEditText
             mInputLayoutRegisterEmail,
             mInputLayoutRegisterPassword,
             mInputLayoutRegisterConfirmPassword;
@@ -87,8 +86,8 @@ public class RegisterFragment extends Fragment implements OnSignUpListener {
     }
 
     private void validate() {
-        if (mInputLayoutRegisterEmail.getEditText().getText().toString() == null &&
-                mInputLayoutRegisterPassword.getEditText().getText().toString() == null) {
+        if (mInputLayoutRegisterEmail.getText().toString() == null &&
+                mInputLayoutRegisterPassword.getText().toString() == null) {
             progressBar.setVisibility(View.VISIBLE);
             registerWithStore();
         } else {
@@ -97,9 +96,9 @@ public class RegisterFragment extends Fragment implements OnSignUpListener {
     }
 
     private void registerWithStore() {
-        registerEmail = mInputLayoutRegisterEmail.getEditText().getText().toString().trim();
-        registerPassword = mInputLayoutRegisterPassword.getEditText().getText().toString().trim();
-        registerConfirmPassword = mInputLayoutRegisterConfirmPassword.getEditText().getText().toString().trim();
+        registerEmail = mInputLayoutRegisterEmail.getText().toString().trim();
+        registerPassword = mInputLayoutRegisterPassword.getText().toString().trim();
+        registerConfirmPassword = mInputLayoutRegisterConfirmPassword.getText().toString().trim();
 
         if (registerPassword.equals(registerConfirmPassword)) {
             mFirebaseAuth.createUserWithEmailAndPassword(registerEmail, registerPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -132,8 +131,8 @@ public class RegisterFragment extends Fragment implements OnSignUpListener {
             });
         } else {
             progressBar.setVisibility(View.GONE);
-            mInputLayoutRegisterConfirmPassword.setHelperText("Passwords do not match");
-            mInputLayoutRegisterConfirmPassword.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.helperTextError)));
+//            mInputLayoutRegisterConfirmPassword.setHelperText("Passwords do not match");
+//            mInputLayoutRegisterConfirmPassword.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.helperTextError)));
         }
 
 

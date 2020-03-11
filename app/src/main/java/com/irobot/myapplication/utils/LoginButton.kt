@@ -222,7 +222,7 @@ class LoginButton : View {
         if (isLogin) {
             canvas.drawText(
                 getString(R.string.sign_up), (dWidth / 2).toFloat(),
-                dpToPixels(457), signUpPaint!!
+                dpToPixels(500), signUpPaint!!
             )
         } else {
             canvas.drawText(
