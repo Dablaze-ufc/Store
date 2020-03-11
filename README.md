@@ -1,2 +1,2 @@
 # Store
-Here we have the animation for the Login screen
+An e- commerce app for  the iRobot store
