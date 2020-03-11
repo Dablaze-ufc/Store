@@ -8,12 +8,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.FoldingCube;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -29,6 +32,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.irobot.myapplication.MainActivity;
 import com.irobot.myapplication.R;
 import com.irobot.myapplication.utils.OnSignUpListener;
 
@@ -47,6 +51,7 @@ public class RegisterFragment extends Fragment implements OnSignUpListener {
     private FirebaseAuth mFirebaseAuth;
     private int RC_SIGN_IN = 0;
     private MaterialButton mMaterialButtonRegister;
+    private ProgressBar progressBar;
     private RegisterFragment registerFragment;
     private SignInFragment signInFragment;
 
@@ -59,6 +64,9 @@ public class RegisterFragment extends Fragment implements OnSignUpListener {
         mInputLayoutRegisterPassword = view.findViewById(R.id.textInputLayout_register_password);
         mInputLayoutRegisterConfirmPassword = view.findViewById(R.id.textInputLayout_register_confirm_password);
         mMaterialButtonRegister = view.findViewById(R.id.googleSignInButton);
+        progressBar = view.findViewById(R.id.spin_kit);
+        Sprite foldingCube = new FoldingCube();
+        progressBar.setIndeterminateDrawable(foldingCube);
         mMaterialButtonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +89,7 @@ public class RegisterFragment extends Fragment implements OnSignUpListener {
     private void validate() {
         if (mInputLayoutRegisterEmail.getEditText().getText().toString() == null &&
                 mInputLayoutRegisterPassword.getEditText().getText().toString() == null) {
+            progressBar.setVisibility(View.VISIBLE);
             registerWithStore();
         } else {
 
@@ -97,7 +106,6 @@ public class RegisterFragment extends Fragment implements OnSignUpListener {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-//                        signOut();
                         //signIn successful
                         FirebaseUser user = mFirebaseAuth.getCurrentUser();
                         user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -105,6 +113,8 @@ public class RegisterFragment extends Fragment implements OnSignUpListener {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(getContext(), "Check your Email for verification", Toast.LENGTH_SHORT).show();
+                                    progressBar.setVisibility(View.GONE);
+                                    signOut();
                                     signUp();
                                 } else
                                     Toast.makeText(getContext(), "Couldn't send verification! " + task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
@@ -112,13 +122,16 @@ public class RegisterFragment extends Fragment implements OnSignUpListener {
                         });
                     } else {
                         if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                            progressBar.setVisibility(View.GONE);
                             Toast.makeText(getContext(), "You are already Registered ", Toast.LENGTH_SHORT).show();
                         } else
+                            progressBar.setVisibility(View.GONE);
                             Toast.makeText(getContext(), "an Error occurred", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         } else {
+            progressBar.setVisibility(View.GONE);
             mInputLayoutRegisterConfirmPassword.setHelperText("Passwords do not match");
             mInputLayoutRegisterConfirmPassword.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.helperTextError)));
         }
@@ -139,18 +152,6 @@ public class RegisterFragment extends Fragment implements OnSignUpListener {
                 .build();
         mGoogleClient = GoogleSignIn.getClient(getActivity(), mGoogleOptions);
 
-//        mButtonGoogleSignin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                signIn();
-//            }
-//        });
-//        mTextViewSignOut.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                signOut();
-//            }
-//        });
     }
 
     @Override
@@ -164,6 +165,7 @@ public class RegisterFragment extends Fragment implements OnSignUpListener {
                 firebaseGoogleAuth(account);
             } catch (ApiException e) {
                 Toast.makeText(getContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
                 Log.d("onActivityResul", "Sign In failed ", e);
 
             }
@@ -186,6 +188,7 @@ public class RegisterFragment extends Fragment implements OnSignUpListener {
         mFirebaseAuth.signInWithCredential(mAC)
                 .addOnCompleteListener(getActivity(), task -> {
                     if (task.isSuccessful()) {
+                        progressBar.setVisibility(View.GONE);
                         Toast.makeText(getContext(), "Successfully", Toast.LENGTH_SHORT).show();
                         FirebaseUser user = mFirebaseAuth.getCurrentUser();
                     } else {
@@ -196,14 +199,14 @@ public class RegisterFragment extends Fragment implements OnSignUpListener {
     }
 
     private void googleSignIn() {
+        progressBar.setVisibility(View.VISIBLE);
         Intent signInIntent = mGoogleClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     @Override
     public void signUp() {
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.sign_up_fragment, registerFragment)
-                .replace(R.id.login_fragment, signInFragment)
-                .commit();
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        startActivity(intent);
     }
 }
