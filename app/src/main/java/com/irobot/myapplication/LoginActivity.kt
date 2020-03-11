@@ -3,11 +3,11 @@ package com.irobot.myapplication
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.irobot.myapplication.databinding.ActivityLoginBinding
@@ -28,8 +28,8 @@ class LoginActivity : AppCompatActivity() {
 
         val registerFragment = RegisterFragment()
         val signInFragment = SignInFragment()
-        supportFragmentManager.beginTransaction().replace(R.id.sign_up_fragment, registerFragment)
-            .replace(R.id.login_fragment, signInFragment)
+        supportFragmentManager.beginTransaction().replace(R.id.login_fragment, signInFragment)
+            .replace(R.id.sign_up_fragment, registerFragment)
             .commit()
         binding.loginFragment.rotation = -90f
         binding.button.setOnSignUpListener(registerFragment)

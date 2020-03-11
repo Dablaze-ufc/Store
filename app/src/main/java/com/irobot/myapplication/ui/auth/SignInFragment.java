@@ -2,6 +2,7 @@ package com.irobot.myapplication.ui.auth;
 
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,7 +20,7 @@ import androidx.fragment.app.Fragment;
 
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.FoldingCube;
-import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.irobot.myapplication.MainActivity;
@@ -32,7 +33,7 @@ import com.irobot.myapplication.utils.OnLoginListener;
 public class SignInFragment extends Fragment implements OnLoginListener {
     private FirebaseAuth mAuth;
 
-    private TextInputEditText mSignInEmail, mSignInPassword;
+    private TextInputLayout mSignInEmail, mSignInPassword;
     private TextView mTextViewForgetPassword;
     private ProgressBar mprogressBar;
 
@@ -45,13 +46,14 @@ public class SignInFragment extends Fragment implements OnLoginListener {
         mAuth = FirebaseAuth.getInstance();
 
         //find views with id's
-        mSignInEmail = view.findViewById(R.id.email_editText);
-        mSignInPassword = view.findViewById(R.id.password_editText);
+        mSignInEmail = view.findViewById(R.id.textInputLayout_signIn_email);
+        mSignInPassword = view.findViewById(R.id.textInputLayout_signIn_password);
         mTextViewForgetPassword = view.findViewById(R.id.textView_forgetPassword);
 
         mprogressBar = view.findViewById(R.id.spin_kit);
         Sprite foldingCube = new FoldingCube();
         mprogressBar.setIndeterminateDrawable(foldingCube);
+        mprogressBar.setVisibility(View.GONE);
 //        mTextViewForgetPassword.setOnClickListener();
         TextWatcher watcher = new TextWatcher() {
             @Override
@@ -70,15 +72,15 @@ public class SignInFragment extends Fragment implements OnLoginListener {
             }
         };
 
-        mSignInEmail.addTextChangedListener(watcher);
-        mSignInPassword.addTextChangedListener(watcher);
+        mSignInEmail.getEditText().addTextChangedListener(watcher);
+        mSignInPassword.getEditText().addTextChangedListener(watcher);
 
         return view;
     }
 
     private void signInwithStore() {
-        String emailSignIn = mSignInEmail.getText().toString().trim();
-        String passwordSignIn = mSignInPassword.getText().toString().trim();
+        String emailSignIn = mSignInEmail.getEditText().getText().toString().trim();
+        String passwordSignIn = mSignInPassword.getEditText().getText().toString().trim();
 
         mAuth.signInWithEmailAndPassword(emailSignIn, passwordSignIn).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -86,7 +88,7 @@ public class SignInFragment extends Fragment implements OnLoginListener {
                     Toast.makeText(getContext(), "Please verify your Email to continue to Store", Toast.LENGTH_SHORT).show();
                     signOut();
                 } else {
-                    mprogressBar.setVisibility(View.INVISIBLE);
+                    mprogressBar.setVisibility(View.GONE);
                     Toast.makeText(getContext(), "Sign in successful", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);
@@ -110,17 +112,19 @@ public class SignInFragment extends Fragment implements OnLoginListener {
         }
     }
 
-    private void validateFields(TextInputEditText emailInput, TextInputEditText passwordInput) {
-        String email = emailInput.getText().toString();
-        String password = emailInput.getText().toString();
+    private void validateFields(TextInputLayout emailInput, TextInputLayout passwordInput) {
+        String email = emailInput.getEditText().getText().toString();
+        String password = emailInput.getEditText().getText().toString();
         if (Patterns.EMAIL_ADDRESS.matcher(email).matches() && password.length() == 8) {
             disableViews();
             mprogressBar.setVisibility(View.VISIBLE);
             login();
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches() && password.length() == 8) {
-            emailInput.setError("Please Enter A valid Email Address");
+            emailInput.setHelperText("Please Enter A valid Email Address");
+            passwordInput.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.helperTextError)));
         } else if (Patterns.EMAIL_ADDRESS.matcher(email).matches() && password.length() <= 7) {
-            passwordInput.setError("Password Must be 6 characters long");
+            passwordInput.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.helperTextError)));
+            passwordInput.setHelperText("Password Must be 6 characters long");
         } else {
 
         }
@@ -140,6 +144,7 @@ public class SignInFragment extends Fragment implements OnLoginListener {
     @Override
     public void login() {
         signInwithStore();
+
 
     }
 }

@@ -1,6 +1,8 @@
 package com.irobot.myapplication.ui.auth;
 
 
+import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,16 +10,24 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.irobot.myapplication.R;
 import com.irobot.myapplication.utils.OnSignUpListener;
 
@@ -32,8 +42,13 @@ public class RegisterFragment extends Fragment implements OnSignUpListener {
             mInputLayoutRegisterEmail,
             mInputLayoutRegisterPassword,
             mInputLayoutRegisterConfirmPassword;
-    private FirebaseAuth mFirebaseRegister;
+    private GoogleSignInClient mGoogleClient;
+    private FirebaseAuth mFirebaseAuth;
+    private int RC_SIGN_IN = 0;
+    private FirebaseAuth mAuth;
     private MaterialButton mMaterialButtonRegister;
+    private RegisterFragment registerFragment;
+    private SignInFragment signInFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,15 +58,32 @@ public class RegisterFragment extends Fragment implements OnSignUpListener {
         mInputLayoutRegisterEmail = view.findViewById(R.id.textInputLayout_register_email);
         mInputLayoutRegisterPassword = view.findViewById(R.id.textInputLayout_register_password);
         mInputLayoutRegisterConfirmPassword = view.findViewById(R.id.textInputLayout_register_confirm_password);
-//        mMaterialButtonRegister = view.findViewById(R.id.button_register);
-
+        mMaterialButtonRegister = view.findViewById(R.id.googleSignInButton);
+        mMaterialButtonRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                googleSignIn();
+            }
+        });
         //get Instance
-        mFirebaseRegister = FirebaseAuth.getInstance();
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        if (mInputLayoutRegisterEmail.hasFocus()) {
 
-        //method Calling
+        }
+
+        validate();
 
 
         return view;
+    }
+
+    private void validate() {
+        if (mInputLayoutRegisterEmail.getEditText().getText().toString() == null &&
+                mInputLayoutRegisterPassword.getEditText().getText().toString() == null) {
+            registerWithStore();
+        } else {
+
+        }
     }
 
     private void registerWithStore() {
@@ -59,66 +91,122 @@ public class RegisterFragment extends Fragment implements OnSignUpListener {
         registerPassword = mInputLayoutRegisterPassword.getEditText().getText().toString().trim();
         registerConfirmPassword = mInputLayoutRegisterConfirmPassword.getEditText().getText().toString().trim();
 
-        if (checkingPasswords()) {
-            mFirebaseRegister.createUserWithEmailAndPassword(registerEmail, registerPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        if (registerPassword.equals(registerConfirmPassword)) {
+            mFirebaseAuth.createUserWithEmailAndPassword(registerEmail, registerPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(getContext(), "Registration Completed", Toast.LENGTH_SHORT).show();
 //                        signOut();
                         //signIn successful
-                        FirebaseUser user = mFirebaseRegister.getCurrentUser();
+                        FirebaseUser user = mFirebaseAuth.getCurrentUser();
                         user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(getContext(), "Check your Email for verification", Toast.LENGTH_SHORT).show();
-                                    navigateToSignIn(mMaterialButtonRegister);
-                                    signOut();
+                                    signUp();
                                 } else
-                                    Toast.makeText(getContext(), "Could'nt send verification! " + task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "Couldn't send verification! " + task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
                     } else {
                         if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                             Toast.makeText(getContext(), "You are already Registered ", Toast.LENGTH_SHORT).show();
                         } else
-                            Toast.makeText(getContext(), "an Error occured", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "an Error occurred", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         } else {
-            Toast.makeText(getContext(), "Password does'nt match", Toast.LENGTH_SHORT).show();
+            mInputLayoutRegisterConfirmPassword.setHelperText("Passwords do not match");
+            mInputLayoutRegisterConfirmPassword.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.helperTextError)));
         }
 
-
-    }
-
-//    private void whenButtonIsClicked() {
-//        mMaterialButtonRegister.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                registerWithStore();
-//            }
-//        });
-//    }
-
-    private Boolean checkingPasswords() {
-        return registerPassword.length() == registerConfirmPassword.length();
-    }
-
-    private void navigateToSignIn(View view) {
 
     }
 
     private void signOut() {
-        if (mFirebaseRegister.getCurrentUser() != null) {
-            mFirebaseRegister.signOut();
+        if (mFirebaseAuth.getCurrentUser() != null) {
+            mFirebaseAuth.signOut();
         }
+    }
+
+    private void googleSignInOption() {
+        GoogleSignInOptions mGoogleOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        mGoogleClient = GoogleSignIn.getClient(getParentFragment().getContext(), mGoogleOptions);
+
+//        mButtonGoogleSignin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                signIn();
+//            }
+//        });
+//        mTextViewSignOut.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                signOut();
+//            }
+//        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> tasks = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(tasks);
+        }
+    }
+
+    private void googleSignOut() {
+        mGoogleClient.signOut()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+//                        mTextViewSignOut.setVisibility(View.INVISIBLE);
+                        Toast.makeText(getContext(), "you are logged out", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void handleSignInResult(Task<GoogleSignInAccount> CompletedTasks) {
+        try {
+            GoogleSignInAccount account = CompletedTasks.getResult(ApiException.class);
+            Toast.makeText(getContext(), "Sign In Successfully", Toast.LENGTH_SHORT).show();
+            assert account != null;
+            firebaseGoogleAuth(account);
+        } catch (ApiException e) {
+            Toast.makeText(getContext(), "Sign In Failed", Toast.LENGTH_SHORT).show();
+            firebaseGoogleAuth(null);
+        }
+    }
+
+    private void firebaseGoogleAuth(GoogleSignInAccount accounts) {
+        AuthCredential mAC = GoogleAuthProvider.getCredential(accounts.getIdToken(), null);
+        mAuth.signInWithCredential(mAC)
+                .addOnCompleteListener(getActivity(), task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(getContext(), "Successfully", Toast.LENGTH_SHORT).show();
+                        FirebaseUser user = mAuth.getCurrentUser();
+                    } else {
+                        Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+    }
+
+    private void googleSignIn() {
+        Intent signInIntent = mGoogleClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     @Override
     public void signUp() {
-
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.sign_up_fragment, registerFragment)
+                .replace(R.id.login_fragment, signInFragment)
+                .commit();
     }
 }
