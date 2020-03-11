@@ -3,7 +3,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'com.google.gms.google-services'
 
 apply plugin: 'kotlin-kapt'
 
@@ -64,6 +63,13 @@ dependencies {
 
     // RoundedImageView
     implementation 'com.makeramen:roundedimageview:2.3.0'
+
+    //spinkit ProgressBar
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+
+    //databinding
+    annotationProcessor 'com.android.databinding:compiler:3.1.4'
+
 
 
     //glide

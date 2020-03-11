@@ -21,6 +21,11 @@
     <string name="text_forget_password">Forgot Password?</string>
     <string name="long_topic">We just need your registered email address to send password reset link</string>
     <string name="reset_password">Reset password</string>
+    <string name="forgot_password">Forget Password</string>
+    <string name="login">Login</string>
+    <string name="or">or</string>
+    <string name="google">Google</string>
+    <string name="email_address">Email Address</string>
 
     <string name="image_for_the_item">Image for the item</string>
     <string name="productimage">ProductImage</string>
