@@ -6,6 +6,10 @@
     <color name="black">#000000</color>
     <color name="facebook_blue">#3B5998</color>
     <color name="white">#FFFFFF</color>
+
+
+    //textInputLayouthelpertextcolour
+    <color name="helperTextError">#FB0505</color>
     <color name="secondPage">#131A56</color>
     <color name="text">#ffffff</color>
 
