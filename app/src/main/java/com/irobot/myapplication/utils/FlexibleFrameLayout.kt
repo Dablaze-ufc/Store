@@ -4,9 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.FrameLayout
 
-import android.content.Context
-import android.util.AttributeSet
-import android.widget.FrameLayout
 
 class FlexibleFrameLayout : FrameLayout {
 

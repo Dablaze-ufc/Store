@@ -26,8 +26,9 @@ class LoginActivity : AppCompatActivity() {
         binding =
             DataBindingUtil.setContentView(this, R.layout.activity_login)
 
-        val registerFragment = RegisterFragment()
+
         val signInFragment = SignInFragment()
+        val registerFragment = RegisterFragment()
         supportFragmentManager.beginTransaction().replace(R.id.login_fragment, signInFragment)
             .replace(R.id.sign_up_fragment, registerFragment)
             .commit()
@@ -48,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
             }
 
         })
-        binding.loginFragment.visibility = INVISIBLE
+        binding.loginFragment.visibility = VISIBLE
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {

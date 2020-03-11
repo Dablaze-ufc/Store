@@ -4,6 +4,7 @@ package com.irobot.myapplication.ui.auth;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,6 @@ public class RegisterFragment extends Fragment implements OnSignUpListener {
     private GoogleSignInClient mGoogleClient;
     private FirebaseAuth mFirebaseAuth;
     private int RC_SIGN_IN = 0;
-    private FirebaseAuth mAuth;
     private MaterialButton mMaterialButtonRegister;
     private RegisterFragment registerFragment;
     private SignInFragment signInFragment;
@@ -70,6 +70,7 @@ public class RegisterFragment extends Fragment implements OnSignUpListener {
         if (mInputLayoutRegisterEmail.hasFocus()) {
 
         }
+        googleSignInOption();
 
         validate();
 
@@ -136,7 +137,7 @@ public class RegisterFragment extends Fragment implements OnSignUpListener {
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-        mGoogleClient = GoogleSignIn.getClient(getParentFragment().getContext(), mGoogleOptions);
+        mGoogleClient = GoogleSignIn.getClient(getActivity(), mGoogleOptions);
 
 //        mButtonGoogleSignin.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -157,7 +158,15 @@ public class RegisterFragment extends Fragment implements OnSignUpListener {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> tasks = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(tasks);
+            try {
+                GoogleSignInAccount account = tasks.getResult(ApiException.class);
+                Toast.makeText(getContext(), "Sign In Successfully", Toast.LENGTH_SHORT).show();
+                firebaseGoogleAuth(account);
+            } catch (ApiException e) {
+                Toast.makeText(getContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Log.d("onActivityResul", "Sign In failed ", e);
+
+            }
         }
     }
 
@@ -172,25 +181,13 @@ public class RegisterFragment extends Fragment implements OnSignUpListener {
                 });
     }
 
-    private void handleSignInResult(Task<GoogleSignInAccount> CompletedTasks) {
-        try {
-            GoogleSignInAccount account = CompletedTasks.getResult(ApiException.class);
-            Toast.makeText(getContext(), "Sign In Successfully", Toast.LENGTH_SHORT).show();
-            assert account != null;
-            firebaseGoogleAuth(account);
-        } catch (ApiException e) {
-            Toast.makeText(getContext(), "Sign In Failed", Toast.LENGTH_SHORT).show();
-            firebaseGoogleAuth(null);
-        }
-    }
-
     private void firebaseGoogleAuth(GoogleSignInAccount accounts) {
         AuthCredential mAC = GoogleAuthProvider.getCredential(accounts.getIdToken(), null);
-        mAuth.signInWithCredential(mAC)
+        mFirebaseAuth.signInWithCredential(mAC)
                 .addOnCompleteListener(getActivity(), task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(getContext(), "Successfully", Toast.LENGTH_SHORT).show();
-                        FirebaseUser user = mAuth.getCurrentUser();
+                        FirebaseUser user = mFirebaseAuth.getCurrentUser();
                     } else {
                         Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
                     }
