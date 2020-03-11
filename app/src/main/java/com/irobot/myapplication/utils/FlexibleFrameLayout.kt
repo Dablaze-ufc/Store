@@ -9,6 +9,7 @@ import android.util.AttributeSet
 import android.widget.FrameLayout
 
 class FlexibleFrameLayout : FrameLayout {
+
     private var currentOrder = 0
     private val TAG = "OrderLayout"
 
