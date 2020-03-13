@@ -72,4 +72,15 @@
             app:cornerRadius="8dp" />
     </RelativeLayout>
 
+    <ImageView
+        android:id="@+id/image_empty_cart"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_empty_cart_co35"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/recycler_cart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

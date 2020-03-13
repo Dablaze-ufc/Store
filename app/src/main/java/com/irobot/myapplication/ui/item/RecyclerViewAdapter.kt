@@ -54,7 +54,7 @@ class RecyclerViewAdapter(
             Glide.with(mContext).load(imageUrl).into(holder.imgUser)
             holder.itemTxtTitle.text = tittle
             holder.itemTxtMessage.text = description
-            holder.itemTxtPrice.text = price
+            holder.itemTxtPrice.text = """₦${price}"""
             Observable.create(ObservableOnSubscribe<MutableList<CartItem>> {
                 holder.addButton.setOnClickListener { view ->
                     val item = CartItem(getItem(position))
