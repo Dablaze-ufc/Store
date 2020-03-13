@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -131,11 +132,11 @@ class ItemsAddFragment : Fragment() {
             binding.itemName.editText!!.text.toString().trim(),
             binding.itemDescription.editText!!.text.toString().trim(),
             binding.itemPrice.editText!!.text.toString().trim()
-
         )
         databaseReference.child(id!!).setValue(item).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Toast.makeText(parentFragment!!.context, "Success", Toast.LENGTH_SHORT).show()
+                Navigation.findNavController(requireView()).navigateUp()
             } else {
                 Toast.makeText(parentFragment!!.context, "oh oh", Toast.LENGTH_SHORT).show()
             }

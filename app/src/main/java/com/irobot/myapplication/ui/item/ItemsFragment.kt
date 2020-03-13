@@ -1,14 +1,15 @@
 package com.irobot.myapplication.ui.item
 
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.database.*
@@ -20,8 +21,8 @@ import com.irobot.myapplication.data.Items
  */
 class ItemsFragment : Fragment() {
 
-    private lateinit var items: ArrayList<Items>
     private lateinit var recyclerView: RecyclerView
+    private lateinit var recyclerContext: Context
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,11 +43,6 @@ class ItemsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpRecyclerView()
-    }
-
-    private fun setUpRecyclerView() {
-
 
         recyclerView.addItemDecoration(
             GridMarginDecoration(
@@ -57,26 +53,12 @@ class ItemsFragment : Fragment() {
                 2
             )
         )
-        getItems()
-//        val adapter = RecyclerViewAdapter(requireContext(), items)
-//        recyclerView.adapter = adapter
-        val gridLayoutManager = GridLayoutManager(activity, 2)
-//        adapter.setHasStableIds(true)
-        recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = gridLayoutManager
-    }
-
-    private fun getItems() {
-
-        items = ArrayList()
+        var items: ArrayList<Items> = arrayListOf()
         val database: Query = FirebaseDatabase.getInstance().getReference("items")
             .orderByKey()
 
         database.addValueEventListener(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {
-                Toast.makeText(parentFragment!!.context, "error loading list", Toast.LENGTH_SHORT)
-                    .show()
-            }
+
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 items.clear()
@@ -84,13 +66,77 @@ class ItemsFragment : Fragment() {
                     val item: Items = snapshot.getValue(Items::class.java)!!
                     items.add(item)
                 }
-                val adapter = RecyclerViewAdapter(requireContext(), items)
+                val adapter = RecyclerViewAdapter(recyclerContext, items)
+                Log.d("no events", "find Events" + items.toString())
                 recyclerView.adapter = adapter
             }
 
 
+            override fun onCancelled(p0: DatabaseError) {
+                Toast.makeText(parentFragment!!.context, "error loading list", Toast.LENGTH_SHORT)
+                    .show()
+            }
         })
+
+
+
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        recyclerContext = context
+
+    }
+
+//    private fun setUpRecyclerView() {
+//
+//
+//        recyclerView.addItemDecoration(
+//            GridMarginDecoration(
+//                activity,
+//                2,
+//                2,
+//                2,
+//                2
+//            )
+//        )
+//
+//        val adapter = RecyclerViewAdapter(requireContext(), items)
+//        recyclerView.adapter = adapter
+//
+//    }
+//
+//    private fun getItems() {
+//
+//        items = ArrayList()
+//        val database: Query = FirebaseDatabase.getInstance().getReference("items")
+//            .orderByKey()
+//
+//        database.addValueEventListener(object : ValueEventListener {
+//
+//
+//            override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                items.clear()
+//                for (snapshot in dataSnapshot.children) {
+//                    val item: Items = snapshot.getValue(Items::class.java)!!
+//                    items.add(item)
+//                }
+//
+//
+//
+//            }
+//
+//            override fun onCancelled(p0: DatabaseError) {
+//                Toast.makeText(parentFragment!!.context, "error loading list", Toast.LENGTH_SHORT)
+//                    .show()
+//            }
+//
+//
+//        })
+
+
+
     }
 
 
-}
+

@@ -189,6 +189,7 @@ public class RegisterFragment extends Fragment implements OnSignUpListener {
                     if (task.isSuccessful()) {
                         progressBar.setVisibility(View.GONE);
                         Toast.makeText(getContext(), "Successfully", Toast.LENGTH_SHORT).show();
+                        signUp();
                         FirebaseUser user = mFirebaseAuth.getCurrentUser();
                     } else {
                         Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
