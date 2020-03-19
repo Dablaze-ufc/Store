@@ -1,12 +1,11 @@
 package com.irobot.myapplication.data
 
 data class Items(
-    val id: String? = null,
-    val imageUrl: String? = null,
-    var tittle: String? = null,
-    var description: String? = null,
-    var price: String? = null
+    val id: String = "",
+    val imageUrl: String = "",
+    var tittle: String = "",
+    var description: String = "",
+    var price: String = ""
 
 
-) {
-}
+)
