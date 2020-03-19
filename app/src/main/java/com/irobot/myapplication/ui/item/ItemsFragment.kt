@@ -63,7 +63,6 @@ class ItemsFragment : Fragment() {
         )
         var items: ArrayList<Items> = arrayListOf()
         val database = FirebaseDatabase.getInstance().getReference("items")
-            .orderByKey()
         items.clear()
         database.addValueEventListener(object : ValueEventListener {
 

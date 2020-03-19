@@ -41,6 +41,7 @@ class CartFragment : Fragment() {
             imageView.visibility = GONE
             adapter = ProductAdapter(parentFragment!!.activity!!, ShoppingCart.getCart())
             adapter.notifyDataSetChanged()
+            adapter.hasStableIds()
             recyclerView.adapter = adapter
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
@@ -65,7 +66,7 @@ class CartFragment : Fragment() {
 
         val totalPrice = ShoppingCart.getCart().fold(0.toDouble()) { acc, cartItem ->
             acc + cartItem
-                .quantity.times(cartItem.product.price!!.toDouble())
+                .quantity.times(cartItem.product.price.toDouble())
         }
         val textTotal: TextView = root.findViewById(R.id.total_price)
         textTotal.text = """₦${totalPrice}"""

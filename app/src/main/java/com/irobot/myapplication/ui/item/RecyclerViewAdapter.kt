@@ -64,6 +64,7 @@ class RecyclerViewAdapter(
                         (holder.itemView.context as MainActivity).constraint,
                         "${item.product.tittle} added to your cart", Snackbar.LENGTH_LONG
                     ).show()
+
                     it.onNext(ShoppingCart.getCart())
 
                 }
