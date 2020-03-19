@@ -32,6 +32,8 @@
     <string name="title">Title</string>
     <string name="description">Description</string>
     <string name="price">Price</string>
+    <string name="item_description">Item Description</string>
+    <string name="item_price">Item Price</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 

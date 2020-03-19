@@ -43,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
                 binding.root.setBackgroundColor(
                     ContextCompat.getColor(
                         this@LoginActivity,
-                        if (isLogin) R.color.colorPrimary else R.color.secondPage
+                        if (isLogin) R.color.colorPrimary else R.color.colorAccent
                     )
                 )
             }

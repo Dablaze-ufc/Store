@@ -51,9 +51,6 @@ public class RegisterFragment extends Fragment implements OnSignUpListener {
     private int RC_SIGN_IN = 0;
     private MaterialButton mMaterialButtonRegister;
     private ProgressBar progressBar;
-    private RegisterFragment registerFragment;
-    private SignInFragment signInFragment;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_register, container, false);
@@ -189,6 +186,7 @@ public class RegisterFragment extends Fragment implements OnSignUpListener {
                     if (task.isSuccessful()) {
                         progressBar.setVisibility(View.GONE);
                         Toast.makeText(getContext(), "Successfully", Toast.LENGTH_SHORT).show();
+                        signUp();
                         FirebaseUser user = mFirebaseAuth.getCurrentUser();
                     } else {
                         Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();

@@ -82,7 +82,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:19.1.1'
     implementation 'com.google.firebase:firebase-core:17.2.2'
 
-    //databinding
+    //dataBinding
     annotationProcessor 'com.android.databinding:compiler:3.1.4'
 
     // Facebook shimmer effect dependency
@@ -103,6 +103,9 @@ dependencies {
     //Paper database
     implementation 'io.paperdb:paperdb:2.6'
 
-    //Picassio
+    //Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    // beerProgressBar
+    implementation 'uk.co.barbuzz:beerprogressview:0.0.6'
 }

@@ -10,11 +10,17 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
+import com.github.ybq.android.spinkit.sprite.Sprite
+import com.github.ybq.android.spinkit.style.FoldingCube
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -30,7 +36,7 @@ import java.io.ByteArrayOutputStream
  */
 class ItemsAddFragment : Fragment() {
     private lateinit var imageUrl: String
-    private lateinit var bitmap: Bitmap
+    private var bitmap: Bitmap? = null
     private var imagePath: String = ""
     private lateinit var binding: FragmentItemsAddBinding
     private var databaseReference: DatabaseReference =
@@ -46,10 +52,32 @@ class ItemsAddFragment : Fragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_items_add, container, false)
         binding.imageView.setOnClickListener { v ->
+            showProgressBar()
             openGallery()
         }
+        val foldingCube: Sprite = FoldingCube()
+        binding.spinKit.setIndeterminateDrawable(foldingCube) as? ProgressBar
         binding.buttonItemAdd.setOnClickListener { v: View ->
-            uploadImageToFireBase()
+            var name = binding.itemName.editText!!.text.toString().trim()
+            var desc = binding.itemDescription.editText!!.text.toString().trim()
+            var price = binding.itemPrice.editText!!.text.toString().trim()
+
+            if (name.isNotEmpty() && desc.isNotEmpty() && price.isNotEmpty()) {
+                showProgressBar()
+                disableViews()
+                uploadImageToFireBase()
+            } else {
+                enableViews()
+                hideProgressBar()
+                Toast.makeText(
+                    requireContext(),
+                    "Please fill in all the fields",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+
+            }
+
         }
         if (arguments != null) {
 
@@ -68,19 +96,23 @@ class ItemsAddFragment : Fragment() {
                         var imageDecoder =
                             ImageDecoder.createSource(requireActivity().contentResolver, uri)
                         bitmap = ImageDecoder.decodeBitmap(imageDecoder)
+                        hideProgressBar()
                         Glide.with(requireActivity()).load(uri).into(binding.imageView)
                     } else {
                         bitmap = MediaStore.Images.Media.getBitmap(
                             requireActivity().contentResolver,
                             uri
                         )
+                        hideProgressBar()
                         Glide.with(requireActivity()).load(uri).into(binding.imageView)
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
             } else {
-                Toast.makeText(parentFragment!!.context, "No image", Toast.LENGTH_SHORT).show()
+                hideProgressBar()
+                Toast.makeText(parentFragment!!.context, "No image selected", Toast.LENGTH_SHORT)
+                    .show()
             }
 
             return
@@ -95,52 +127,91 @@ class ItemsAddFragment : Fragment() {
     }
 
     private fun uploadImageToFireBase() {
-        var outputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 40, outputStream)
-        var data = outputStream.toByteArray()
-        val firebaseStorage = FirebaseStorage.getInstance()
-        var firebaseStorageReference: StorageReference =
-            firebaseStorage.getReference("images/items" + imagePath)
-        var task: UploadTask = firebaseStorageReference.putBytes(data)
-        task.addOnCompleteListener { task1 ->
-            if (task1.isSuccessful) {
-                task1.result!!.storage.downloadUrl.addOnCompleteListener { task2 ->
-                    if (task2.isSuccessful) {
-                        imageUrl = task2.result.toString()
-                        addItems()
+        if (bitmap != null) {
+            var outputStream = ByteArrayOutputStream()
+            bitmap?.compress(Bitmap.CompressFormat.JPEG, 40, outputStream)
+            var data = outputStream.toByteArray()
+            val firebaseStorage = FirebaseStorage.getInstance()
+            var firebaseStorageReference: StorageReference =
+                firebaseStorage.getReference("images/items" + imagePath)
+            var task: UploadTask = firebaseStorageReference.putBytes(data)
+            task.addOnCompleteListener { task1 ->
+                if (task1.isSuccessful) {
+                    task1.result!!.storage.downloadUrl.addOnCompleteListener { task2 ->
+                        if (task2.isSuccessful) {
+                            imageUrl = task2.result.toString()
+                            addItems()
 
+                        }
                     }
+
+
+                } else {
+                    Toast.makeText(
+                        parentFragment!!.context,
+                        task1.exception!!.localizedMessage,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
-
-
-            } else {
-                Toast.makeText(
-                    parentFragment!!.context,
-                    task1.exception!!.localizedMessage,
-                    Toast.LENGTH_SHORT
-                ).show()
             }
+        } else {
+            hideProgressBar()
+            enableViews()
+            Toast.makeText(parentFragment!!.context, "Please Select an Image", Toast.LENGTH_SHORT)
+                .show()
         }
+
+    }
+
+    //    private fun validate(): Boolean{
+//        if (binding.itemPrice.editText?.text!! == null) return false
+//        if (binding.itemName.editText?.text!! == null) return false
+//        if (binding.itemDescription.editText?.text!! == null) return false
+//        return false
+//    }
+    private fun disableViews() {
+        binding.itemName.isEnabled = false
+        binding.itemDescription.isEnabled = false
+        binding.itemPrice.isEnabled = false
+    }
+
+    private fun enableViews() {
+        binding.itemName.isEnabled = true
+        binding.itemDescription.isEnabled = true
+        binding.itemPrice.isEnabled = true
     }
 
     private fun addItems() {
         var id = databaseReference.push().key
-        val item = Items(
-            id,
-            imageUrl,
-            binding.itemName.editText!!.text.toString().trim(),
-            binding.itemDescription.editText!!.text.toString().trim(),
-            binding.itemPrice.editText!!.text.toString().trim()
-
-        )
+        val item = id?.let {
+            Items(
+                it,
+                imageUrl,
+                binding.itemName.editText!!.text.toString().trim(),
+                binding.itemDescription.editText!!.text.toString().trim(),
+                binding.itemPrice.editText!!.text.toString().trim()
+            )
+        }
         databaseReference.child(id!!).setValue(item).addOnCompleteListener { task ->
             if (task.isSuccessful) {
+                hideProgressBar()
+                enableViews()
                 Toast.makeText(parentFragment!!.context, "Success", Toast.LENGTH_SHORT).show()
+                Navigation.findNavController(requireView()).navigateUp()
             } else {
+                hideProgressBar()
+                enableViews()
                 Toast.makeText(parentFragment!!.context, "oh oh", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
+    private fun showProgressBar() {
+        binding.spinKit.visibility = VISIBLE
+    }
+
+    private fun hideProgressBar() {
+        binding.spinKit.visibility = GONE
+    }
 
 }
