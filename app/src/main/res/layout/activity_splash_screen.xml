@@ -12,14 +12,14 @@
         android:layout_height="match_parent"
         app:beerColor="#EFA601"
         app:beerProgress="0"
-        app:bubbleColor="#B67200"
-        app:bubbleCount="30"
+        app:bubbleColor="#b67200"
+        app:bubbleCount="12"
+        app:layout_constraintTop_toTopOf="parent"
+        app:waveAmplitude="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:waveAmplitude="10dp"
-        app:waveMax="80" />
+        app:waveMax="100" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

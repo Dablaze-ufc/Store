@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_splash_screen.*
 
 class SplashScreenActivity : AppCompatActivity() {
-    private val beerDepth: Long = 10000
+    private val beerDepth: Long = 30000
 
     private val pourBeerTaskNew = object : CountDownTimer(beerDepth, 10) {
         override fun onFinish() {
