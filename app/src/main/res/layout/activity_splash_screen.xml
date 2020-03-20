@@ -6,20 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".SplashScreenActivity">
 
-    <uk.co.barbuzz.beerprogressview.BeerProgressView
-        android:id="@+id/beerProgressView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:beerColor="#EFA601"
-        app:beerProgress="0"
-        app:bubbleColor="#b67200"
-        app:bubbleCount="12"
-        app:layout_constraintTop_toTopOf="parent"
-        app:waveAmplitude="3dp"
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/icon"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/irobot"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:waveMax="100" />
+        app:riv_corner_radius="300dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

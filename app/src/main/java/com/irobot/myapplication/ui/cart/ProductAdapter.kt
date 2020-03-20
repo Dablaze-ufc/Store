@@ -34,6 +34,9 @@ class ProductAdapter(var context: Context, var cartItem: List<CartItem>) :
         }
 
     }
+    override fun getItemId(position: Int) = position.toLong()
+
+    override fun getItemViewType(position: Int) = position
 
 
 }

@@ -53,7 +53,6 @@ class CartFragment : Fragment() {
             if (auth == null) {
                 val intent = Intent(activity, LoginActivity::class.java)
                 startActivity(intent)
-                activity?.finish()
             } else {
                 Toast.makeText(
                     requireContext(),

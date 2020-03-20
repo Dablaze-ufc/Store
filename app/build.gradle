@@ -47,7 +47,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     //material design
-    implementation 'com.google.android.material:material:1.2.0-alpha04'
+    implementation 'com.google.android.material:material:1.2.0-alpha05'
 
     //navigation
     implementation 'androidx.navigation:navigation-fragment-ktx:2.2.1'
@@ -57,17 +57,17 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0'
 
     //firebase
-    implementation 'com.google.firebase:firebase-core:17.2.2'
-    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    implementation 'com.google.firebase:firebase-core:17.2.3'
+    implementation 'com.google.firebase:firebase-auth:19.3.0'
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
 
     // RoundedImageView
     implementation 'com.makeramen:roundedimageview:2.3.0'
 
-    //spinkit ProgressBar
+    //spineKit ProgressBar
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 
-    //databinding
+    //databasing
     annotationProcessor 'com.android.databinding:compiler:3.1.4'
 
 
@@ -76,10 +76,10 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
 
     //fireBase
-    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    implementation 'com.google.firebase:firebase-auth:19.3.0'
     implementation 'com.google.firebase:firebase-database:19.2.1'
     implementation 'com.google.firebase:firebase-storage:19.1.1'
-    implementation 'com.google.firebase:firebase-core:17.2.2'
+    implementation 'com.google.firebase:firebase-core:17.2.3'
 
     //dataBinding
     annotationProcessor 'com.android.databinding:compiler:3.1.4'
@@ -93,7 +93,7 @@ dependencies {
     implementation 'com.etebarian:meow-bottom-navigation:1.2.0'
 
     //Reactive libraries
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.14'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
 
     // RoundedImageView
@@ -105,6 +105,4 @@ dependencies {
     //Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
-    // beerProgressBar
-    implementation 'uk.co.barbuzz:beerprogressview:0.0.6'
 }

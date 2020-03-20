@@ -121,5 +121,8 @@ class RecyclerViewAdapter(
 //            }
         }
     }
+    override fun getItemId(position: Int) = position.toLong()
+
+    override fun getItemViewType(position: Int) = position
 
 }

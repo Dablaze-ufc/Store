@@ -99,6 +99,7 @@ class ItemsAddFragment : Fragment() {
                         hideProgressBar()
                         Glide.with(requireActivity()).load(uri).into(binding.imageView)
                     } else {
+                        imagePath = uri.lastPathSegment!!
                         bitmap = MediaStore.Images.Media.getBitmap(
                             requireActivity().contentResolver,
                             uri
@@ -133,7 +134,7 @@ class ItemsAddFragment : Fragment() {
             var data = outputStream.toByteArray()
             val firebaseStorage = FirebaseStorage.getInstance()
             var firebaseStorageReference: StorageReference =
-                firebaseStorage.getReference("images/items" + imagePath)
+                firebaseStorage.getReference("images/items/$imagePath")
             var task: UploadTask = firebaseStorageReference.putBytes(data)
             task.addOnCompleteListener { task1 ->
                 if (task1.isSuccessful) {
@@ -141,7 +142,6 @@ class ItemsAddFragment : Fragment() {
                         if (task2.isSuccessful) {
                             imageUrl = task2.result.toString()
                             addItems()
-
                         }
                     }
 
@@ -182,7 +182,7 @@ class ItemsAddFragment : Fragment() {
     }
 
     private fun addItems() {
-        var id = databaseReference.push().key
+        val id = databaseReference.push().key
         val item = id?.let {
             Items(
                 it,
@@ -197,7 +197,7 @@ class ItemsAddFragment : Fragment() {
                 hideProgressBar()
                 enableViews()
                 Toast.makeText(parentFragment!!.context, "Success", Toast.LENGTH_SHORT).show()
-                Navigation.findNavController(requireView()).navigateUp()
+                Navigation.findNavController(requireView()).navigate(R.id.itemsFragment)
             } else {
                 hideProgressBar()
                 enableViews()
