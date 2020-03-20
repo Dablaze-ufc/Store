@@ -1,5 +1,6 @@
 package com.irobot.myapplication
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -8,6 +9,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.paperdb.Paper
 
 class MainActivity : AppCompatActivity() {
@@ -68,6 +70,43 @@ class MainActivity : AppCompatActivity() {
                 else -> mNavController.navigate(R.id.itemsFragment)
             }
         }
+
+        curvedBottomNavigationView.setOnShowListener {
+            when(it.id){
+               ID_CART ->  {R.id.cartFragment
+//                            curvedBottomNavigationView.show(ID_CART)
+                            }
+                 ID_PROFILE-> R.id.profileFragment
+                else -> R.id.profileFragment
+            }
+        }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return mNavController.navigateUp()|| super.onSupportNavigateUp()
+    }
+
+    override fun onBackPressed() {
+        if (mNavController.currentDestination!!.id == R.id.itemsFragment)
+            showDialog()
+        else
+            mNavController.navigateUp()
+    }
+
+    private fun showDialog() {
+      val dialog = MaterialAlertDialogBuilder(this)
+        dialog.setTitle("Exit!")
+            .setPositiveButton("Yes") {
+                dialog: DialogInterface?, i: Int ->
+                dialog?.dismiss()
+                System.exit(0)
+            }
+            .setNegativeButton("No") { dialog: DialogInterface?, i: Int ->
+                dialog?.dismiss()
+            }
+        dialog.create().show()
+
+
     }
 
     private fun initDestinationListener() {
