@@ -65,7 +65,6 @@ class MainActivity : AppCompatActivity() {
             when (it.id) {
                 ID_CART -> {
                     mNavController.navigate(R.id.cartFragment)
-                    curvedBottomNavigationView.clearCount(ID_CART)
                 }
                 ID_PROFILE -> mNavController.navigate(R.id.profileFragment)
                 else -> mNavController.navigate(R.id.itemsFragment)
@@ -89,7 +88,7 @@ class MainActivity : AppCompatActivity() {
       val dialog = MaterialAlertDialogBuilder(this)
         dialog.setTitle("Exit!")
             .setPositiveButton("Yes") {
-                dialog: DialogInterface?, i: Int ->
+                    dialog: DialogInterface?, _: Int ->
                 dialog?.dismiss()
                 exitProcess(0)
             }
