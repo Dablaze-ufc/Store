@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.irobot.myapplication.R
 import com.irobot.myapplication.data.Items
+import com.mikelau.views.shimmer.ShimmerRecyclerViewX
 
 /**
  * A simple [Fragment] subclass.
@@ -30,6 +31,7 @@ class ItemsFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var recyclerContext: Context
     private lateinit var emptyStore: ImageView
+    private lateinit var shimmerRecyclerViewX: ShimmerRecyclerViewX
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +41,8 @@ class ItemsFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_items, container, false)
         recyclerView = root.findViewById(R.id.recycle)
         val button = root.findViewById<MaterialButton>(R.id.add_button)
+        shimmerRecyclerViewX = root.findViewById(R.id.shimmer_recycler_view)
+        shimmerRecyclerViewX.showShimmerAdapter()
         emptyStore = root.findViewById(R.id.image_empty_store)
         button.setOnClickListener { v ->
 
@@ -51,6 +55,8 @@ class ItemsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
 
         recyclerView.addItemDecoration(
             GridMarginDecoration(
@@ -80,6 +86,7 @@ class ItemsFragment : Fragment() {
                     emptyStore.visibility = GONE
                     val adapter = RecyclerViewAdapter(recyclerContext, items)
                     Log.d("no events", "find Events" + items.toString())
+                    shimmerRecyclerViewX.hideShimmerAdapter()
                     adapter.updateList(items)
                     adapter.setHasStableIds(true)
                     recyclerView.adapter = adapter

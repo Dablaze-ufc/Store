@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".ui.item.ItemsFragment">
 
+    <com.mikelau.views.shimmer.ShimmerRecyclerViewX
+        android:id="@+id/shimmer_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shimmer_demo_angle="20"
+        app:shimmer_demo_child_count="10"
+        app:shimmer_demo_grid_child_count="2"
+        app:shimmer_demo_layout="@layout/layout_demo_grid"
+        app:shimmer_demo_layout_manager_type="grid" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle"
