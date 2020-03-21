@@ -11,6 +11,7 @@ import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.paperdb.Paper
+import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -71,15 +72,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        curvedBottomNavigationView.setOnShowListener {
-            when(it.id){
-               ID_CART ->  {R.id.cartFragment
-//                            curvedBottomNavigationView.show(ID_CART)
-                            }
-                 ID_PROFILE-> R.id.profileFragment
-                else -> R.id.profileFragment
-            }
-        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -87,9 +79,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (mNavController.currentDestination!!.id == R.id.itemsFragment)
+        if (mNavController.currentDestination!!.id == R.id.itemsFragment){
             showDialog()
-        else
+        } else
             mNavController.navigateUp()
     }
 
@@ -99,7 +91,7 @@ class MainActivity : AppCompatActivity() {
             .setPositiveButton("Yes") {
                 dialog: DialogInterface?, i: Int ->
                 dialog?.dismiss()
-                System.exit(0)
+                exitProcess(0)
             }
             .setNegativeButton("No") { dialog: DialogInterface?, i: Int ->
                 dialog?.dismiss()
@@ -113,7 +105,14 @@ class MainActivity : AppCompatActivity() {
         mNavController.addOnDestinationChangedListener { _, destination, arguments ->
             when (destination.id) {
                 R.id.itemsAddFragment -> hideBottomNav()
-                else -> showBottomNav()
+                R.id.cartFragment ->  { curvedBottomNavigationView.show(ID_CART, false)
+                                            showBottomNav()}
+                R.id.profileFragment ->   {curvedBottomNavigationView.show(ID_PROFILE, false)
+                                                showBottomNav()}
+                R.id.itemsFragment -> {curvedBottomNavigationView.show(ID_STORE, false)
+                    showBottomNav()
+
+                }
 
             }
         }
