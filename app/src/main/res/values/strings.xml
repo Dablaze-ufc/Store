@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Store</string>
+    <string name="app_name">iRobot Store</string>
     <string name="hello_blank_fragment">Hello Blank Fragment</string>
     <string name="sign_up_with_google">Sign up with Google</string>
     <string name="sign_up_with_facebook">Sign up with Facebook</string>
@@ -28,7 +28,7 @@
     <string name="email_address">Email Address</string>
 
     <string name="image_for_the_item">Image for the item</string>
-    <string name="productimage">ProductImage</string>
+    <string name="productImage">ProductImage</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
     <string name="price">Price</string>

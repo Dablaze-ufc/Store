@@ -36,7 +36,7 @@
                 android:adjustViewBounds="true"
                 android:alpha="0.9"
                 android:background="#16000000"
-                android:contentDescription="@string/productimage"
+                android:contentDescription="@string/productImage"
                 android:scaleType="centerCrop" />
 
 
