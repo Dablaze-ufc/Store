@@ -197,7 +197,7 @@ class ItemsAddFragment : Fragment() {
                 hideProgressBar()
                 enableViews()
                 Toast.makeText(parentFragment!!.context, "Success", Toast.LENGTH_SHORT).show()
-                Navigation.findNavController(requireView()).navigateUp()
+                Navigation.findNavController(requireView()).navigate(R.id.itemsFragment)
             } else {
                 hideProgressBar()
                 enableViews()

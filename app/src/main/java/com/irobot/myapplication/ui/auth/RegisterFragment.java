@@ -3,6 +3,8 @@ package com.irobot.myapplication.ui.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,27 +73,42 @@ public class RegisterFragment extends Fragment implements OnSignUpListener {
         });
         //get Instance
         mFirebaseAuth = FirebaseAuth.getInstance();
-        if (mInputLayoutRegisterEmail.hasFocus()) {
-
-        }
         googleSignInOption();
 
-        validate();
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                validate(mInputLayoutRegisterEmail,mInputLayoutRegisterPassword);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        };
+
+        mInputLayoutRegisterEmail.addTextChangedListener(textWatcher);
+        mInputLayoutRegisterConfirmPassword.addTextChangedListener(textWatcher);
 
         return view;
     }
 
-    private void validate() {
-        if (mInputLayoutRegisterEmail.getText().toString() == null &&
-                mInputLayoutRegisterPassword.getText().toString() == null) {
+    private void validate(TextInputEditText emailEdit, TextInputEditText passwordEditText) {
+           String email = emailEdit.getText().toString().trim();
+           String password = passwordEditText.getText().toString();
+        if (!email.isEmpty() &&
+            !password.isEmpty()) {
             progressBar.setVisibility(View.VISIBLE);
             registerWithStore();
-        } else {
-
+        }else
+        {
         }
     }
-
     private void registerWithStore() {
         registerEmail = mInputLayoutRegisterEmail.getText().toString().trim();
         registerPassword = mInputLayoutRegisterPassword.getText().toString().trim();
@@ -103,44 +120,27 @@ public class RegisterFragment extends Fragment implements OnSignUpListener {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         //signIn successful
-                        FirebaseUser user = mFirebaseAuth.getCurrentUser();
-                        user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(getContext(), "Check your Email for verification", Toast.LENGTH_SHORT).show();
-                                    progressBar.setVisibility(View.GONE);
-                                    signOut();
-                                    signUp();
-                                } else
-                                    Toast.makeText(getContext(), "Couldn't send verification! " + task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        startActivity(intent);
+
                     } else {
                         if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                             progressBar.setVisibility(View.GONE);
                             Toast.makeText(getContext(), "You are already Registered ", Toast.LENGTH_SHORT).show();
-                        } else
-                            progressBar.setVisibility(View.GONE);
-                            Toast.makeText(getContext(), "an Error occurred", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                 }
             });
         } else {
             progressBar.setVisibility(View.GONE);
-//            mInputLayoutRegisterConfirmPassword.setHelperText("Passwords do not match");
+//            mInputLayoutRegisterConfirmPassword.setText("");
+            mInputLayoutRegisterConfirmPassword.setError("Passwords do not match");
 //            mInputLayoutRegisterConfirmPassword.setHelperTextColor(ColorStateList.valueOf(getResources().getColor(R.color.helperTextError)));
         }
 
 
     }
-
-    private void signOut() {
-        if (mFirebaseAuth.getCurrentUser() != null) {
-            mFirebaseAuth.signOut();
-        }
-    }
-
     private void googleSignInOption() {
         GoogleSignInOptions mGoogleOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -162,7 +162,7 @@ public class RegisterFragment extends Fragment implements OnSignUpListener {
             } catch (ApiException e) {
                 Toast.makeText(getContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.GONE);
-                Log.d("onActivityResul", "Sign In failed ", e);
+                Log.d("onActivityResult", "Sign In failed ", e);
 
             }
         }
@@ -186,7 +186,8 @@ public class RegisterFragment extends Fragment implements OnSignUpListener {
                     if (task.isSuccessful()) {
                         progressBar.setVisibility(View.GONE);
                         Toast.makeText(getContext(), "Successfully", Toast.LENGTH_SHORT).show();
-                        signUp();
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        startActivity(intent);
                         FirebaseUser user = mFirebaseAuth.getCurrentUser();
                     } else {
                         Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
@@ -203,7 +204,6 @@ public class RegisterFragment extends Fragment implements OnSignUpListener {
 
     @Override
     public void signUp() {
-        Intent intent = new Intent(getActivity(), MainActivity.class);
-        startActivity(intent);
+
     }
 }

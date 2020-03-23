@@ -17,12 +17,13 @@ import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import com.irobot.myapplication.LoginActivity
 import com.irobot.myapplication.R
+import java.text.DecimalFormat
 
 /**
  * A simple [Fragment] subclass.
  */
 class CartFragment : Fragment() {
-    lateinit var adapter: ProductAdapter
+    private lateinit var adapter: ProductAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,6 +40,7 @@ class CartFragment : Fragment() {
             imageView.visibility = VISIBLE
         } else {
             imageView.visibility = GONE
+
             adapter = ProductAdapter(parentFragment!!.activity!!, ShoppingCart.getCart())
             adapter.notifyDataSetChanged()
             adapter.hasStableIds()
@@ -48,12 +50,13 @@ class CartFragment : Fragment() {
         }
 
 
-        button.setOnClickListener { v ->
+        button.setOnClickListener {
             val auth = FirebaseAuth.getInstance().currentUser
             if (auth == null) {
                 val intent = Intent(activity, LoginActivity::class.java)
                 startActivity(intent)
             } else {
+                
                 Toast.makeText(
                     requireContext(),
                     "Your items will be delivered shortly",
@@ -62,13 +65,14 @@ class CartFragment : Fragment() {
             }
         }
 
-
         val totalPrice = ShoppingCart.getCart().fold(0.toDouble()) { acc, cartItem ->
             acc + cartItem
                 .quantity.times(cartItem.product.price.toDouble())
         }
         val textTotal: TextView = root.findViewById(R.id.total_price)
-        textTotal.text = """₦${totalPrice}"""
+        val formatter  = DecimalFormat("#,###,###")
+        val price =  formatter.format(totalPrice)
+        textTotal.text = "₦${price}"
         return root
 
     }
