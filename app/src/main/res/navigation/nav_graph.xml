@@ -7,17 +7,14 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.irobot.myapplication.ui.LoginFragment"
+        android:name="com.irobot.myapplication.ui.auth.SignInFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_sign_in" />
     <fragment
         android:id="@+id/itemsFragment"
         android:name="com.irobot.myapplication.ui.item.ItemsFragment"
         android:label="fragment_items"
         tools:layout="@layout/fragment_items">
-        <action
-            android:id="@+id/action_itemsFragment_to_itemsDetailsFragment"
-            app:destination="@id/itemsDetailsFragment" />
         <action
             android:id="@+id/action_itemsFragment_to_itemsAddFragment"
             app:destination="@id/itemsAddFragment"

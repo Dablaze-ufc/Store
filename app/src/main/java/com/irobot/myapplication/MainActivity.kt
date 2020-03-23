@@ -1,5 +1,6 @@
 package com.irobot.myapplication
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -8,7 +9,9 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.paperdb.Paper
+import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -62,19 +65,53 @@ class MainActivity : AppCompatActivity() {
             when (it.id) {
                 ID_CART -> {
                     mNavController.navigate(R.id.cartFragment)
-                    curvedBottomNavigationView.clearCount(ID_CART)
                 }
                 ID_PROFILE -> mNavController.navigate(R.id.profileFragment)
                 else -> mNavController.navigate(R.id.itemsFragment)
             }
         }
+
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return mNavController.navigateUp()|| super.onSupportNavigateUp()
+    }
+
+    override fun onBackPressed() {
+        if (mNavController.currentDestination!!.id == R.id.itemsFragment){
+            showDialog()
+        } else
+            mNavController.navigateUp()
+    }
+
+    private fun showDialog() {
+      val dialog = MaterialAlertDialogBuilder(this)
+        dialog.setTitle("Exit!")
+            .setPositiveButton("Yes") {
+                    dialog: DialogInterface?, _: Int ->
+                dialog?.dismiss()
+                exitProcess(0)
+            }
+            .setNegativeButton("No") { dialog: DialogInterface?, i: Int ->
+                dialog?.dismiss()
+            }
+        dialog.create().show()
+
+
     }
 
     private fun initDestinationListener() {
         mNavController.addOnDestinationChangedListener { _, destination, arguments ->
             when (destination.id) {
                 R.id.itemsAddFragment -> hideBottomNav()
-                else -> showBottomNav()
+                R.id.cartFragment ->  { curvedBottomNavigationView.show(ID_CART, false)
+                                            showBottomNav()}
+                R.id.profileFragment ->   {curvedBottomNavigationView.show(ID_PROFILE, false)
+                                                showBottomNav()}
+                R.id.itemsFragment -> {curvedBottomNavigationView.show(ID_STORE, false)
+                    showBottomNav()
+
+                }
 
             }
         }
