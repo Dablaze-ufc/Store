@@ -1,17 +1,15 @@
 package com.irobot.myapplication
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View.INVISIBLE
-import android.view.ViewAnimationUtils
+import android.view.View.VISIBLE
 import android.view.ViewTreeObserver
 import android.view.animation.Animation
 import android.view.animation.BounceInterpolator
 import android.view.animation.TranslateAnimation
 import androidx.appcompat.app.AppCompatActivity
+import com.github.ybq.android.spinkit.style.DoubleBounce
 import kotlinx.android.synthetic.main.activity_splash_screen.*
 
 class SplashScreenActivity : AppCompatActivity() {
@@ -20,7 +18,7 @@ class SplashScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
             if (savedInstanceState == null){
-                val viewTreeObserver:ViewTreeObserver = splash.viewTreeObserver
+                val viewTreeObserver:ViewTreeObserver = icon.viewTreeObserver
                 if (viewTreeObserver.isAlive){
                     viewTreeObserver.addOnGlobalLayoutListener(object :
                         ViewTreeObserver.OnGlobalLayoutListener{
@@ -34,14 +32,46 @@ class SplashScreenActivity : AppCompatActivity() {
             }
 
 
-    }
+        }
 
     private fun animationsSlash(){
+        val transAnim2 = TranslateAnimation (0F, 0F, 0F, (getDisplayHeight()/2).toFloat())
+        transAnim2.apply {
+            startOffset = 500
+            duration = 2000
+            fillAfter = true
+            interpolator = BounceInterpolator()
+            transAnim2.setAnimationListener(object :
+                Animation.AnimationListener
+            {
+                override fun onAnimationRepeat(animation: Animation?) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onAnimationEnd(animation: Animation?) {
+//                       icon.clearAnimation()
+                    val left = spin_kit.left
+                    val top = spin_kit.top
+                    val right = spin_kit.right
+                    val bottom = spin_kit.bottom
+
+
+                    spin_kit.layout(left,top,right,bottom)
+//                    val sprite = DoubleBounce()
+//                    spin_kit.setIndeterminateDrawable(sprite)
+//                    spin_kit.visibility = VISIBLE
+                }
+
+                override fun onAnimationStart(animation: Animation?) {
+                    Log.i("TAG", "Starting button dropdown animation")
+                }
+
+            })
         icon.clearAnimation()
         val transAnim = TranslateAnimation (0F, 0F, 0F, (getDisplayHeight()/2).toFloat())
         transAnim.apply {
             startOffset = 500
-            duration = 3000
+            duration = 2000
             fillAfter = true
             interpolator = BounceInterpolator()
             transAnim.setAnimationListener(object :
@@ -58,38 +88,31 @@ class SplashScreenActivity : AppCompatActivity() {
                     val right = icon.right
                     val bottom = icon.bottom
 
-
+                    val sprite = DoubleBounce()
+                    spin_kit.setIndeterminateDrawable(sprite)
+                    spin_kit.visibility = VISIBLE
                     icon.layout(left,top,right,bottom)
-                    val cx = icon.measuredWidth/2
-                    val cy = icon.measuredHeight / 2
 
-                    val finalRadius = Math.max(icon.width, icon.height)/2
-                    val anim = ViewAnimationUtils.createCircularReveal(icon,cx,cy,
-                    0F,
-                        finalRadius.toFloat()
-                    )
 
-                    anim.addListener(object: AnimatorListenerAdapter() {
-                        override fun onAnimationEnd(animation: Animator?) {
-                            super.onAnimationEnd(animation)
-                            val intent = Intent(this@SplashScreenActivity, MainActivity::class.java)
+                    val intent = Intent(this@SplashScreenActivity, MainActivity::class.java)
                             startActivity(intent)
                             finish()
-                            icon.visibility = INVISIBLE
-                        }
-                    })
 
-                    anim.start()
                 }
 
                 override fun onAnimationStart(animation: Animation?) {
-                    Log.i("TAG", "Starting button dropdown animation")
+                    icon.visibility = VISIBLE
                 }
 
             })
             icon.startAnimation(transAnim)
+//            spin_kit.startAnimation(transAnim2)
+//            val sprite = DoubleBounce()
+//            spin_kit.setIndeterminateDrawable(sprite)
+//            spin_kit.visibility = VISIBLE
         }
 
+    }
     }
     private fun getDisplayHeight(): Int{
         return this.resources.displayMetrics.heightPixels
