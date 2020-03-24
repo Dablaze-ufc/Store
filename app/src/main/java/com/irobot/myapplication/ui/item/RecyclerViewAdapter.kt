@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
@@ -79,8 +78,6 @@ class RecyclerViewAdapter(
                     2,
                     quantity.toString()
                 )
-                Toast.makeText(holder.itemView.context, "Cart size $quantity", Toast.LENGTH_SHORT)
-                    .show()
             }
 
 

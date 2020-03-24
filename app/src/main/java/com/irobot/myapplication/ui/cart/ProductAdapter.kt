@@ -5,10 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
+import com.irobot.myapplication.MainActivity
 import com.irobot.myapplication.R
 import com.irobot.myapplication.data.CartItem
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.cart_recycler_items.view.*
 import java.text.NumberFormat
 import java.util.*
@@ -26,8 +30,17 @@ class ProductAdapter(var context: Context, var cartItem: List<CartItem>) :
 
     override fun onBindViewHolder(holder: ShoppingCartViewHolder, position: Int) {
         holder.bindItem(cartItem[position])
-        holder.itemView.findViewById<ImageButton>(R.id.removeFromCart).setOnClickListener{v ->
-            ShoppingCart.removeItem(cartItem[position],context)
+
+        holder.itemView.findViewById<ImageButton>(R.id.removeFromCart).setOnClickListener { v ->
+            ShoppingCart.removeItem(cartItem[position])
+            notifyDataSetChanged()
+            notifyItemRemoved(position)
+            Snackbar.make(
+                (holder.itemView.context as MainActivity).constraint,
+                "${cartItem[position].product.tittle} removed from your cart", Snackbar.LENGTH_LONG
+            ).show()
+
+            Navigation.findNavController(v).navigate(R.id.itemsFragment)
         }
     }
 

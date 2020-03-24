@@ -42,8 +42,6 @@ class CartFragment : Fragment() {
             imageView.visibility = GONE
 
             adapter = ProductAdapter(parentFragment!!.activity!!, ShoppingCart.getCart())
-            adapter.notifyDataSetChanged()
-            adapter.hasStableIds()
             recyclerView.adapter = adapter
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
 

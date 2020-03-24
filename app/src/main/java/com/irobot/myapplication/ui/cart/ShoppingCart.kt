@@ -1,6 +1,5 @@
 package com.irobot.myapplication.ui.cart
 
-import android.content.Context
 import com.irobot.myapplication.data.CartItem
 import io.paperdb.Paper
 
@@ -22,13 +21,13 @@ class ShoppingCart {
             saveCart(cart)
         }
 
-        fun removeItem(cartItem: CartItem, context: Context) {
+        fun removeItem(cartItem: CartItem) {
             val cart =
                 getCart()
 
             val targetItem = cart.singleOrNull { it.product.id == cartItem.product.id }
             if (targetItem != null) {
-                if (targetItem.quantity > 0) {
+                if (targetItem.quantity > 1) {
                     targetItem.quantity--
                 } else {
                     cart.remove(targetItem)
