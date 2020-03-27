@@ -3,6 +3,7 @@ package com.irobot.myapplication.ui.cart
 import com.irobot.myapplication.data.CartItem
 import io.paperdb.Paper
 
+
 class ShoppingCart {
     companion object {
         fun addItem(cartItem: CartItem) {
@@ -42,6 +43,9 @@ class ShoppingCart {
 
         fun getCart(): MutableList<CartItem> {
             return Paper.book().read("cart", mutableListOf())
+        }
+        fun clearCart(){
+            Paper.book().delete("cart")
         }
 
         fun getShoppingCartSize(): Int {
