@@ -13,7 +13,6 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -56,10 +55,10 @@ class ItemsAddFragment : Fragment() {
             openGallery()
         }
         val foldingCube: Sprite = FoldingCube()
-        binding.spinKit.setIndeterminateDrawable(foldingCube) as? ProgressBar
-        binding.buttonItemAdd.setOnClickListener { v: View ->
-            var name = binding.itemName.editText!!.text.toString().trim()
-            var desc = binding.itemDescription.editText!!.text.toString().trim()
+        binding.spinKit.setIndeterminateDrawable(foldingCube)
+        binding.buttonItemAdd.setOnClickListener { _: View ->
+            val name = binding.itemName.editText!!.text.toString().trim()
+            val desc = binding.itemDescription.editText!!.text.toString().trim()
             var price = binding.itemPrice.editText!!.text.toString().trim()
 
             if (name.isNotEmpty() && desc.isNotEmpty() && price.isNotEmpty()) {
@@ -88,12 +87,12 @@ class ItemsAddFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 67 && resultCode == RESULT_OK) {
-            var uri = data!!.data
+            val uri = data!!.data
             if (uri != null) {
                 try {
                     if (Build.VERSION.SDK_INT >= 29) {
                         imagePath = uri.lastPathSegment!!
-                        var imageDecoder =
+                        val imageDecoder =
                             ImageDecoder.createSource(requireActivity().contentResolver, uri)
                         bitmap = ImageDecoder.decodeBitmap(imageDecoder)
                         hideProgressBar()
@@ -129,13 +128,13 @@ class ItemsAddFragment : Fragment() {
 
     private fun uploadImageToFireBase() {
         if (bitmap != null) {
-            var outputStream = ByteArrayOutputStream()
+            val outputStream = ByteArrayOutputStream()
             bitmap?.compress(Bitmap.CompressFormat.JPEG, 40, outputStream)
-            var data = outputStream.toByteArray()
+            val data = outputStream.toByteArray()
             val firebaseStorage = FirebaseStorage.getInstance()
-            var firebaseStorageReference: StorageReference =
+            val firebaseStorageReference: StorageReference =
                 firebaseStorage.getReference("images/items/$imagePath")
-            var task: UploadTask = firebaseStorageReference.putBytes(data)
+            val task: UploadTask = firebaseStorageReference.putBytes(data)
             task.addOnCompleteListener { task1 ->
                 if (task1.isSuccessful) {
                     task1.result!!.storage.downloadUrl.addOnCompleteListener { task2 ->
@@ -197,7 +196,7 @@ class ItemsAddFragment : Fragment() {
                 hideProgressBar()
                 enableViews()
                 Toast.makeText(parentFragment!!.context, "Success", Toast.LENGTH_SHORT).show()
-                Navigation.findNavController(requireView()).navigateUp()
+                Navigation.findNavController(requireView()).navigate(R.id.itemsFragment)
             } else {
                 hideProgressBar()
                 enableViews()

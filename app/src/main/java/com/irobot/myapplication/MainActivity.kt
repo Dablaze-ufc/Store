@@ -58,9 +58,6 @@ class MainActivity : AppCompatActivity() {
                 R.drawable.ic_account_supervisor
             )
         )
-
-//        curvedBottomNavigationView.setCount(ID_CART, ShoppingCart.getShoppingCartSize().toString())
-
         curvedBottomNavigationView.setOnClickMenuListener {
             when (it.id) {
                 ID_CART -> {

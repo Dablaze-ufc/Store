@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
@@ -19,6 +18,7 @@ import com.irobot.myapplication.ui.cart.ShoppingCart
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 import kotlinx.android.synthetic.main.activity_main.*
+import java.text.NumberFormat
 import java.util.*
 
 /**
@@ -54,7 +54,8 @@ class RecyclerViewAdapter(
             Glide.with(mContext).load(imageUrl).into(holder.imgUser)
             holder.itemTxtTitle.text = tittle
             holder.itemTxtMessage.text = description
-            holder.itemTxtPrice.text = """₦${price}"""
+
+            holder.itemTxtPrice.text = "₦${formantNumber(price)}"
             Observable.create(ObservableOnSubscribe<MutableList<CartItem>> {
                 holder.addButton.setOnClickListener { view ->
                     val item = CartItem(getItem(position))
@@ -77,8 +78,6 @@ class RecyclerViewAdapter(
                     2,
                     quantity.toString()
                 )
-                Toast.makeText(holder.itemView.context, "Cart size $quantity", Toast.LENGTH_SHORT)
-                    .show()
             }
 
 
@@ -125,4 +124,12 @@ class RecyclerViewAdapter(
 
     override fun getItemViewType(position: Int) = position
 
+}
+fun formantNumber(number:String): String{
+    return if(number.isNotEmpty()){
+        val number2 = number.toDouble()
+        NumberFormat.getNumberInstance(Locale.US).format(number2)
+
+    }else
+        "0"
 }

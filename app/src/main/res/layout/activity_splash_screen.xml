@@ -21,7 +21,7 @@
 
     <com.github.ybq.android.spinkit.SpinKitView
         android:id="@+id/spin_kit"
-        style="@style/SpinKitView.Large.Circle"
+        style="@style/SpinKitView.Large.FoldingCube"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_gravity="center"

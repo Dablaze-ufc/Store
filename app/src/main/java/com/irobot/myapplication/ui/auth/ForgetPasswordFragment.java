@@ -65,14 +65,11 @@ public class ForgetPasswordFragment extends DialogFragment {
     }
 
     private void editTextError() {
-        if (ifEmpty()) {
+        if (emailForgetPassword.length() == 0) {
             mTextInputLayout.setError("Please enter an email");
         } else {
             resetPassword();
         }
     }
 
-    private boolean ifEmpty() {
-        return emailForgetPassword.length() == 0;
-    }
 }

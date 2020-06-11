@@ -21,7 +21,6 @@ import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.FoldingCube;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.irobot.myapplication.MainActivity;
 import com.irobot.myapplication.R;
 import com.irobot.myapplication.utils.OnLoginListener;
@@ -77,53 +76,35 @@ public class SignInFragment extends Fragment implements OnLoginListener {
         return view;
     }
 
-    private void signInwithStore() {
+    private void signInWithStore() {
         String emailSignIn = mSignInEmail.getText().toString().trim();
         String passwordSignIn = mSignInPassword.getText().toString().trim();
 
         mAuth.signInWithEmailAndPassword(emailSignIn, passwordSignIn).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                if (!isUserVerified(mAuth.getCurrentUser())) {
-                    Toast.makeText(getContext(), "Please verify your Email to continue to Store", Toast.LENGTH_SHORT).show();
-                    signOut();
-                } else {
                     mprogressBar.setVisibility(View.GONE);
                     Toast.makeText(getContext(), "Sign in successful", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);
                     enableViews();
-                }
             } else {
                 Toast.makeText(getContext(), task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 enableViews();
+                mprogressBar.setVisibility(View.GONE);
             }
         });
     }
-
-
-    private Boolean isUserVerified(FirebaseUser user) {
-        return user.isEmailVerified();
-    }
-
-    private void signOut() {
-        if (mAuth.getCurrentUser() != null) {
-            mAuth.signOut();
-        }
-    }
-
     private void validateFields(TextInputEditText emailInput, TextInputEditText passwordInput) {
         String email = emailInput.getText().toString();
-        String password = emailInput.getText().toString();
+        String password = passwordInput.getText().toString();
         if (Patterns.EMAIL_ADDRESS.matcher(email).matches() && password.length() == 8) {
             disableViews();
             mprogressBar.setVisibility(View.VISIBLE);
-            login();
+            signInWithStore();
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches() && password.length() == 8) {
             emailInput.setError("Please Enter A valid Email Address");
         } else if (Patterns.EMAIL_ADDRESS.matcher(email).matches() && password.length() <= 7) {
             passwordInput.setError("Password Must be 6 characters long");
-        } else {
-
         }
 
     }
@@ -140,7 +121,7 @@ public class SignInFragment extends Fragment implements OnLoginListener {
 
     @Override
     public void login() {
-        signInwithStore();
+
 
 
     }

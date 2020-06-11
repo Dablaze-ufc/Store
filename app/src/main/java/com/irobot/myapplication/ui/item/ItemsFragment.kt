@@ -45,11 +45,9 @@ class ItemsFragment : Fragment() {
         shimmerRecyclerViewX.showShimmerAdapter()
         emptyStore = root.findViewById(R.id.image_empty_store)
         button.setOnClickListener { v ->
-
             Navigation.findNavController(parentFragment!!.activity!!, R.id.fragment)
                 .navigate(R.id.action_itemsFragment_to_itemsAddFragment)
         }
-//        setUpRecyclerView()
         return root
     }
 
@@ -67,7 +65,7 @@ class ItemsFragment : Fragment() {
                 2
             )
         )
-        var items: ArrayList<Items> = arrayListOf()
+        val items: ArrayList<Items> = arrayListOf()
         val database = FirebaseDatabase.getInstance().getReference("items")
         items.clear()
         database.addValueEventListener(object : ValueEventListener {

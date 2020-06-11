@@ -62,7 +62,7 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    fun switchFragment(view: View) {
+    private fun switchFragment(view: View) {
         if (isLogin) {
             binding.loginFragment.visibility = VISIBLE
             binding.loginFragment.animate().rotation(0f).setListener(object :
